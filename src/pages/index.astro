@@ -1,0 +1,40 @@
+---
+// src/pages/index.astro (Atualizado)
+import MainLayout from '@/layouts/MainLayout.astro';
+import Hero from '@/components/Hero.astro';
+---
+
+<MainLayout 
+  title="[Seu Nome] | Desenvolvedor Full-Stack"
+  description="Portfólio de [Seu Nome], desenvolvedor web."
+>
+  <Hero />
+
+  <!-- Seções com melhor responsividade -->
+  <div id="projects" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12">
+        Projetos
+      </h2>
+      <!-- Conteúdo da seção -->
+    </div>
+  </div>
+
+  <div id="about" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12">
+        Sobre
+      </h2>
+      <!-- Conteúdo da seção -->
+    </div>
+  </div>
+
+  <div id="contact" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12">
+        Contato
+      </h2>
+      <!-- Conteúdo da seção -->
+    </div>
+  </div>
+</MainLayout>

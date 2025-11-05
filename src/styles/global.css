@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variáveis CSS personalizadas */
+:root {
+  --white: #ffffff;
+  --white-icon: rgba(255, 255, 255, 0.9);
+  --max-width: 1400px;
+}
+
+/* Reset e estilos base */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Responsividade de texto base */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Estilos de acessibilidade */
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Melhoria de leitura em telas pequenas */
+@media (max-width: 640px) {
+  p, li {
+    line-height: 1.6;
+  }
+}
+
+/* Estilos de scrollbar */
+::-webkit-scrollbar { 
+  width: 8px; 
+}
+
+::-webkit-scrollbar-track { 
+  background: #161b22; 
+}
+
+::-webkit-scrollbar-thumb { 
+  background: #21262d; 
+  border-radius: 4px; 
+}
+
+::-webkit-scrollbar-thumb:hover { 
+  background: #30363d; 
+}
+
+/* Classes utilitárias */
+.container-responsive {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: var(--max-width);
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Melhorias de acessibilidade para interação */
+a, button {
+  transition: all 0.2s ease;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Melhorias de interação para dispositivos touch */
+@media (hover: none) {
+  a:active, button:active {
+    opacity: 0.7;
+  }
+}
