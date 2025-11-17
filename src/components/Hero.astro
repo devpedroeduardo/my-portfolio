@@ -1,21 +1,147 @@
 ---
-// src/components/Hero.astro
+// src/components/Hero.astro (Versão com React Animations)
+import AnimatedText, { GradientText, ShimmerText } from '../../react/AnimatedText'
 ---
-<section id="hero" class="min-h-screen flex items-center max-w-3xl mx-auto px-6 pt-24">
-  <div>
-    <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
-      Olá, eu sou [Seu Nome]
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+  <!-- Background effects -->
+  <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+  
+  <!-- Animated particles -->
+  <div class="absolute inset-0">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-5xl mx-auto text-center">
+    
+    <!-- Badge with animation -->
+    <div class="opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+      <span class="inline-flex items-center gap-2 px-4 py-2 mb-8 text-sm font-medium text-blue-400 bg-blue-400/10 border border-blue-400/20 rounded-full backdrop-blur-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+        </span>
+        Available for new projects
+      </span>
+    </div>
+
+    <!-- Main heading with React animations -->
+    <h1 class="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+      <div class="block mb-2">
+        <AnimatedText 
+          text="Where design" 
+          className="text-white"
+          animationType="slide"
+          delay={400}
+          client:load
+        />
+      </div>
+      <div class="block">
+        <GradientText client:load>
+          <AnimatedText 
+            text="meets code" 
+            animationType="wave"
+            delay={600}
+            client:load
+          />
+        </GradientText>
+      </div>
     </h1>
-    <h2 class="text-2xl md:text-3xl font-semibold text-neutral-300 mb-8">
-      Desenvolvedor Full-Stack. Eu crio soluções web modernas e performáticas.
-    </h2>
-    <div class="flex gap-x-4">
-      <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-        Entre em Contato
+
+    <!-- Subtitle with shimmer effect -->
+    <div class="mb-12 opacity-0 animate-fade-in-up" style="animation-delay: 1s;">
+      <p class="text-lg sm:text-xl md:text-2xl text-neutral-300 max-w-3xl mx-auto leading-relaxed">
+        Building <ShimmerText client:load><span class="text-white font-semibold">intuitive</span></ShimmerText> and 
+        <ShimmerText client:load><span class="text-white font-semibold">memorable interfaces</span></ShimmerText> with 
+        <span class="relative inline-block group">
+          <span class="text-white font-semibold relative z-10">cutting-edge</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-500"></span>
+        </span> frontend development.
+      </p>
+    </div>
+
+    <!-- Interactive CTA buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fade-in-up" style="animation-delay: 1.2s;">
+      <a 
+        href="#projects" 
+        class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white rounded-lg overflow-hidden transition-all duration-300"
+      >
+        <!-- Gradient background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:scale-110"></div>
+        
+        <!-- Shine effect -->
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+        
+        <!-- Button content -->
+        <span class="relative z-10 flex items-center gap-2">
+          View My Work
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </span>
+        
+        <!-- Glow effect -->
+        <div class="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
       </a>
-      <a href="[https://linkedin.com/in/seu-usuario](https://linkedin.com/in/seu-usuario)" target="_blank" rel="noopener noreferrer" class="border border-neutral-600 hover:border-white text-neutral-200 font-medium py-3 px-6 rounded-lg transition-colors">
-        LinkedIn
+      
+      <a 
+        href="#contact" 
+        class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-transparent border-2 border-neutral-600 rounded-lg overflow-hidden transition-all duration-300 hover:border-white"
+      >
+        <!-- Background slide effect -->
+        <div class="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+        
+        <!-- Button content -->
+        <span class="relative z-10 flex items-center gap-2">
+          Get In Touch
+          <svg class="w-5 h-5 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </span>
       </a>
     </div>
+
+    <!-- Tech stack with hover effects -->
+    <div class="mt-20 opacity-0 animate-fade-in-up" style="animation-delay: 1.4s;">
+      <p class="text-sm text-neutral-400 mb-6 font-medium tracking-wide uppercase">Powered by modern tech</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        {[
+          { name: 'React', icon: '⚛️' },
+          { name: 'TypeScript', icon: '📘' },
+          { name: 'Next.js', icon: '▲' },
+          { name: 'Tailwind', icon: '🎨' },
+          { name: 'Node.js', icon: '💚' },
+          { name: 'Astro', icon: '🚀' }
+        ].map((tech) => (
+          <span class="group relative px-4 py-2 text-sm font-medium text-neutral-300 bg-gray-800/50 border border-gray-700/50 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-blue-500/50 hover:text-blue-400 hover:scale-105 cursor-default">
+            <span class="flex items-center gap-2">
+              <span class="text-base group-hover:scale-125 transition-transform duration-300">{tech.icon}</span>
+              {tech.name}
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300"></div>
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Animated scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-up" style="animation-delay: 1.6s;">
+      <div class="flex flex-col items-center gap-3">
+        <span class="text-xs text-neutral-400 uppercase tracking-widest font-medium">Explore More</span>
+        <div class="w-6 h-10 border-2 border-neutral-600 rounded-full p-1">
+          <div class="w-1.5 h-2 bg-blue-400 rounded-full mx-auto animate-scroll"></div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Floating orbs -->
+  <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float-slow"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-float-slower"></div>
+  <div class="absolute top-1/2 right-1/3 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl animate-float"></div>
 </section>
