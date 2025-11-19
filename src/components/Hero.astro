@@ -1,6 +1,7 @@
 ---
 // src/components/Hero.astro (Versão com React Animations)
 import AnimatedText, { GradientText, ShimmerText } from '../../react/AnimatedText'
+import LogoLoop from '../components/LogoLoop.astro';
 ---
 
 <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
@@ -106,27 +107,7 @@ import AnimatedText, { GradientText, ShimmerText } from '../../react/AnimatedTex
       </a>
     </div>
 
-    <!-- Tech stack with hover effects -->
-    <div class="mt-20 opacity-0 animate-fade-in-up" style="animation-delay: 1.4s;">
-      <div class="flex flex-wrap justify-center gap-3">
-        {[
-          { name: 'React', icon: '⚛️' },
-          { name: 'TypeScript', icon: '📘' },
-          { name: 'Next.js', icon: '▲' },
-          { name: 'Tailwind', icon: '🎨' },
-          { name: 'Node.js', icon: '💚' },
-          { name: 'Astro', icon: '🚀' }
-        ].map((tech) => (
-          <span class="group relative px-4 py-2 text-sm font-medium text-neutral-300 bg-gray-800/50 border border-gray-700/50 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-blue-500/50 hover:text-blue-400 hover:scale-105 cursor-default">
-            <span class="flex items-center gap-2">
-              <span class="text-base group-hover:scale-125 transition-transform duration-300">{tech.icon}</span>
-              {tech.name}
-            </span>
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300"></div>
-          </span>
-        ))}
-      </div>
-    </div>
+    <LogoLoop
 
   <!-- Floating orbs -->
   <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-float-slow"></div>
