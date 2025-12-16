@@ -1,0 +1,105 @@
+---
+// src/components/Hero.astro
+import AnimatedText, { ShimmerText } from '../react/AnimatedText.tsx';
+// Certifique-se que o LogoLoop existe ou remova a importação se não estiver usando
+import LogoLoop from '../components/LogoLoop.astro'; 
+---
+
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 bg-gray-900 pt-20 pb-10">
+  
+  <!-- Background effects -->
+  <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-0"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent z-0"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent z-0"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center justify-center">
+    
+    <!-- Badge -->
+    <!-- 
+      Ajustado: mt-10 no mobile e mt-20 em telas maiores para melhor posicionamento vertical.
+    -->
+    <div class="mt-10 sm:mt-16 md:mt-20 opacity-0 animate-fade-in-up" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+      <span class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 mb-6 sm:mb-8 text-xs sm:text-sm font-medium text-blue-400 bg-blue-400/10 border border-blue-400/20 rounded-full backdrop-blur-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+        </span>
+        Available for new projects
+      </span>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="w-full mb-6 sm:mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight flex flex-col items-center justify-center">
+      
+      <!-- Linha 1: Hi, I'm... -->
+      <div class="block mb-1 sm:mb-2">
+        <AnimatedText 
+          text="Hi, I'm Pedro Eduardo" 
+          className="text-white tracking-tight"
+          delay={200}
+          client:load
+        />
+      </div>
+
+      <!-- Linha 2: Software Developer -->
+      <div class="block mt-1 sm:mt-2">
+        <AnimatedText 
+          text="Software Developer"
+          className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 bg-[length:200%_auto] animate-gradient tracking-tight"
+          delay={1000}
+          client:load
+        />
+      </div>
+    </h1>
+
+    <!-- Subtitle -->
+    <!-- 
+      CORREÇÃO: 
+      - Adicionado 'text-balance' para quebrar as linhas de forma harmônica.
+      - Ajuste de 'max-w' para evitar linhas muito longas em tablets.
+      - Fonte ajustada para mobile (text-base) e desktop (text-xl/2xl).
+      - 'px-2' para garantir margem segura em telas muito pequenas.
+    -->
+    <div class="w-full px-2 mb-8 sm:mb-12 opacity-0 animate-fade-in-up" style="animation-delay: 1.2s; animation-fill-mode: forwards;">
+      <p class="text-base sm:text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto leading-relaxed text-balance">
+        Building <span class="inline-flex align-baseline"><ShimmerText client:load><span class="text-white font-semibold">intuitive</span></ShimmerText></span> and 
+        <span class="inline-flex align-baseline"><ShimmerText client:load><span class="text-white font-semibold">memorable interfaces</span></ShimmerText></span> with 
+        <span class="relative inline-block group whitespace-nowrap">
+          <span class="text-white font-semibold relative z-10">cutting-edge</span>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-500"></span>
+        </span> frontend development.
+      </p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="w-full flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fade-in-up px-4" style="animation-delay: 1.4s; animation-fill-mode: forwards;">
+      <a href="#projects" class="w-full sm:w-auto group relative inline-flex items-center justify-center px-8 py-3.5 sm:py-4 text-base font-semibold text-white rounded-lg overflow-hidden transition-all duration-300">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 group-hover:scale-110"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+        <span class="relative z-10 flex items-center gap-2">
+          View My Work
+          <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </span>
+      </a>
+      
+      <a href="#contact" class="w-full sm:w-auto group relative inline-flex items-center justify-center px-8 py-3.5 sm:py-4 text-base font-semibold text-white bg-transparent border-2 border-neutral-600 rounded-lg overflow-hidden transition-all duration-300 hover:border-white">
+        <span class="relative z-10 flex items-center gap-2">
+          Get In Touch
+          <svg class="w-5 h-5 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        </span>
+      </a>
+    </div>
+
+    <!-- LogoLoop Component -->
+    <div class="w-full mt-12 sm:mt-16 opacity-0 animate-fade-in-up" style="animation-delay: 1.6s; animation-fill-mode: forwards;">
+       <LogoLoop />
+    </div>
+
+  </div>
+
+  <!-- Background Orbs -->
+  <div class="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 bg-blue-500/10 rounded-full blur-3xl animate-float-slow pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-60 h-60 sm:w-80 sm:h-80 bg-purple-500/10 rounded-full blur-3xl animate-float-slower pointer-events-none"></div>
+
+</section>

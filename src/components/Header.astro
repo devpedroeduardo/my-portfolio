@@ -1,0 +1,40 @@
+---
+// src/components/Header.astro
+---
+<!-- 
+  Container principal: 
+  - Fixo no topo, largura total, z-index muito alto (z-50).
+  - 'group' permite que elementos filhos reajam ao hover neste container.
+  - 'py-6' cria uma área de hover maior para facilitar a interação.
+  - 'pointer-events-none' no container pai permite clicar através dele quando o menu está oculto.
+-->
+<header class="fixed top-0 left-0 w-full z-50 group py-6 transition-all duration-300 pointer-events-none hover:pointer-events-auto">
+  
+  <!-- 
+    Navbar (o elemento visível):
+    - Pointer events auto para permitir cliques nos links.
+    - Espaçamento ajustado.
+  -->
+  <nav class="pointer-events-auto flex justify-between items-center w-auto max-w-md mx-auto px-10 py-4
+              bg-gray-900/90 backdrop-blur-xl rounded-full
+              border border-gray-700/50 shadow-2xl shadow-blue-900/20
+              opacity-0 -translate-y-full group-hover:opacity-100 group-hover:translate-y-0
+              transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)">
+
+    <!-- Links com efeito de brilho -->
+    <div class="flex w-full justify-center gap-x-12 text-sm font-medium text-neutral-400">
+      <a 
+        href="#hero" 
+        class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300"
+      >Home</a>
+      <a 
+        href="#projects" 
+        class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300"
+      >Projects</a>
+      <a 
+        href="#contact" 
+        class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300"
+      >Contacts</a>
+    </div>
+  </nav>
+</header>

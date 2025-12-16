@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variáveis CSS personalizadas */
+:root {
+  --white: #ffffff;
+  --white-icon: rgba(255, 255, 255, 0.9);
+  --max-width: 1400px;
+}
+
+/* Reset e estilos base */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* Responsividade de texto base */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Estilos de acessibilidade */
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Melhoria de leitura em telas pequenas */
+@media (max-width: 640px) {
+  p, li {
+    line-height: 1.6;
+  }
+}
+
+/* Estilos de scrollbar */
+::-webkit-scrollbar { 
+  width: 8px; 
+}
+
+::-webkit-scrollbar-track { 
+  background: #161b22; 
+}
+
+::-webkit-scrollbar-thumb { 
+  background: #21262d; 
+  border-radius: 4px; 
+}
+
+::-webkit-scrollbar-thumb:hover { 
+  background: #30363d; 
+}
+
+/* Classes utilitárias */
+.container-responsive {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: var(--max-width);
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Melhorias de acessibilidade para interação */
+a, button {
+  transition: all 0.2s ease;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Melhorias de interação para dispositivos touch */
+@media (hover: none) {
+  a:active, button:active {
+    opacity: 0.7;
+  }
+}
+
+  /* Particles */
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(96, 165, 250, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+  }
+
+  .particle-1 {
+    top: 20%;
+    left: 10%;
+    animation: float-particle 8s ease-in-out infinite;
+  }
+
+  .particle-2 {
+    top: 60%;
+    right: 15%;
+    animation: float-particle 10s ease-in-out infinite 2s;
+  }
+
+  .particle-3 {
+    bottom: 30%;
+    left: 20%;
+    animation: float-particle 12s ease-in-out infinite 4s;
+  }
+
+  @keyframes float-particle {
+    0%, 100% {
+      transform: translate(0, 0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    50% {
+      transform: translate(100px, -100px);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(30px, -30px);
+    }
+  }
+
+  @keyframes float-slower {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(-40px, 40px);
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 15s ease-in-out infinite;
+  }
+
+  .animate-float-slower {
+    animation: float-slower 20s ease-in-out infinite;
+  }
+
+  .animate-scroll {
+    animation: scroll 2s ease-in-out infinite;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .particle {
+      display: none;
+    }
+    
+    h1 {
+      font-size: 2.25rem;
+      line-height: 1.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Add AnimatedText animations to global scope */
+  @keyframes wave {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-wave {
+    animation: wave 1s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
