@@ -7,12 +7,16 @@ import SkillsList from '../react/Abilities.tsx';
 import LogoLoop from '../components/LogoLoop.astro'; 
 ---
 
-<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 bg-gray-900 pt-20 pb-20">
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-20 pb-20">
   
-  <!-- Background effects -->
-  <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-0"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent z-0"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent z-0"></div>
+  <!-- 
+    BACKGROUND GLOBAL (FIXED)
+    Alterado para 'fixed' para que este fundo persista enquanto o usuário rola a página,
+    cobrindo também a seção de Projetos e outras subsequentes.
+  -->
+  <div class="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 -z-50"></div>
+  <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent -z-50"></div>
+  <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent -z-50"></div>
 
   <!-- Content -->
   <div class="relative z-10 w-full max-w-5xl mx-auto text-center flex flex-col items-center justify-center">
@@ -88,18 +92,15 @@ import LogoLoop from '../components/LogoLoop.astro';
        <LogoLoop />
     </div>
 
-    <!-- SkillsList Section (Novo) -->
-    <!-- 
-      Adicionado 'client:visible' para hidratar o React apenas quando estiver visível, 
-      garantindo que o efeito de abrir/fechar funcione.
-    -->
+    <!-- SkillsList Section -->
     <div class="w-full mt-8 opacity-0 animate-fade-in-up" style="animation-delay: 1.8s; animation-fill-mode: forwards;">
       <SkillsList client:visible />
     </div>
 
   </div>
 
-  <!-- Background Orbs -->
+  <!-- Background Orbs (Também fixos se desejar, mas mantive absolute pois são efeitos locais, 
+       porém para consistência total, vamos deixar os orbs do gradiente principal cuidarem disso) -->
   <div class="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 bg-blue-500/10 rounded-full blur-3xl animate-float-slow pointer-events-none"></div>
   <div class="absolute bottom-1/4 right-1/4 w-60 h-60 sm:w-80 sm:h-80 bg-purple-500/10 rounded-full blur-3xl animate-float-slower pointer-events-none"></div>
 
