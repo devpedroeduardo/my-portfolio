@@ -1,0 +1,216 @@
+---
+// src/components/Contact.astro
+---
+
+<section id="contact" class="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+  
+  <!-- Linha Separadora Superior -->
+  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+      
+      <!-- Coluna da Esquerda: Informações e Texto -->
+      <div class="opacity-0 animate-fade-in-left">
+        <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">Let's Talk</h2>
+        <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Contact Me</h3>
+        
+        <p class="text-neutral-300 text-lg leading-relaxed mb-8">
+          Have a question, a project proposal, or just want to say hi? 
+          Feel free to reach out. I'm always open to discussing new projects, 
+          creative ideas, or opportunities to be part of your vision.
+        </p>
+
+        <div class="space-y-6">
+          <!-- Item: Localização -->
+          <div class="flex items-center gap-4 text-neutral-300 group">
+            <div class="p-3 bg-gray-800/50 rounded-lg border border-white/5 text-blue-400 group-hover:bg-blue-500/10 group-hover:border-blue-500/20 transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <span class="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">Location</span>
+              <span class="font-medium text-white">Sobral,Ceará,Brazil</span>
+            </div>
+          </div>
+
+          <!-- Item: Email -->
+          <div class="flex items-center gap-4 text-neutral-300 group">
+            <div class="p-3 bg-gray-800/50 rounded-lg border border-white/5 text-purple-400 group-hover:bg-purple-500/10 group-hover:border-purple-500/20 transition-all duration-300">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <span class="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">Email</span>
+              <!-- 
+                ALTERADO: Link direto para compor email no Gmail.
+                target="_blank" abre em nova aba.
+              -->
+              <a 
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=pedroedu77@gmail.com" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-medium text-white hover:text-blue-400 transition-colors"
+              >
+                pedroedu77@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Formulário -->
+      <div class="relative opacity-0 animate-fade-in-right delay-200">
+        <!-- Decoração de fundo (Blur) -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none"></div>
+
+        <div class="relative bg-gray-900/80 backdrop-blur-xl border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl">
+          <form
+            id="contact-form"
+            action="https://formspree.io/f/mnnjznkj" 
+            method="POST"
+            class="space-y-6"
+          >
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Input Name -->
+              <div class="space-y-2">
+                <label for="name" class="text-sm font-medium text-neutral-400">Name</label>
+                <input
+                  type="text"
+                  name="from_name"
+                  id="name"
+                  placeholder="John Doe"
+                  required
+                  class="w-full px-4 py-3 bg-gray-800/50 border border-white/10 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all hover:border-white/20"
+                />
+              </div>
+              <!-- Input Email -->
+              <div class="space-y-2">
+                <label for="email" class="text-sm font-medium text-neutral-400">Email</label>
+                <input
+                  type="email"
+                  name="reply_to"
+                  id="email"
+                  placeholder="john@example.com"
+                  required
+                  class="w-full px-4 py-3 bg-gray-800/50 border border-white/10 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all hover:border-white/20"
+                />
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="space-y-2">
+              <label for="message" class="text-sm font-medium text-neutral-400">Message</label>
+              <textarea
+                name="message"
+                id="message"
+                rows="4"
+                placeholder="Tell me about your project..."
+                required
+                class="w-full px-4 py-3 bg-gray-800/50 border border-white/10 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none hover:border-white/20"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full relative overflow-hidden group bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-600/20 focus:ring-2 focus:ring-blue-500/50 focus:outline-none"
+            >
+              <span class="relative z-10 flex items-center justify-center gap-2 transition-transform duration-300 group-hover:gap-3">
+                Send Message
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
+              <!-- Efeito de brilho no hover -->
+              <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </button>
+          </form>
+
+          <!-- Mensagem de Sucesso (Oculta por padrão) -->
+          <div
+            id="form-message"
+            class="hidden flex-col items-center justify-center py-10 text-center animate-fade-in-up"
+          >
+            <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mb-4 border border-green-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h4 class="text-2xl font-bold text-white mb-2">Message Sent!</h4>
+            <p class="text-neutral-400 mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+            <button 
+              id="reset-form-btn"
+              class="px-6 py-2 rounded-lg bg-gray-800 text-sm font-medium text-white border border-white/10 hover:bg-gray-700 transition-colors"
+            >
+              Send another message
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Lógica de envio do formulário
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const formMessage = document.getElementById("form-message");
+  const resetBtn = document.getElementById("reset-form-btn");
+
+  if (form && formMessage && resetBtn) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      
+      // Estado de Carregamento
+      if(submitBtn) {
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="animate-pulse">Sending...</span>';
+        (submitBtn as HTMLButtonElement).disabled = true;
+        (submitBtn as HTMLButtonElement).classList.add('opacity-70', 'cursor-not-allowed');
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: { Accept: "application/json" },
+          });
+
+          if (response.ok) {
+            form.reset();
+            // Troca o formulário pela mensagem de sucesso
+            form.classList.add("hidden");
+            formMessage.classList.remove("hidden");
+            formMessage.classList.add("flex");
+          } else {
+            const data = await response.json();
+            console.error("Error response:", data);
+            alert("Something went wrong. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Connection error. Please check your internet.");
+        } finally {
+            // Restaura o botão (caso algo dê errado e o form continue visível)
+            submitBtn.innerHTML = originalText;
+            (submitBtn as HTMLButtonElement).disabled = false;
+            (submitBtn as HTMLButtonElement).classList.remove('opacity-70', 'cursor-not-allowed');
+        }
+      }
+    });
+
+    // Botão para enviar nova mensagem
+    resetBtn.addEventListener('click', () => {
+        formMessage.classList.add("hidden");
+        formMessage.classList.remove("flex");
+        form.classList.remove("hidden");
+    });
+  }
+</script>
