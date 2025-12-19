@@ -1,8 +1,10 @@
 ---
 // src/components/Hero.astro
-import { Image } from 'astro:assets'; // Importar o componente Image
+import { Image } from 'astro:assets'; // Importação necessária para usar <Image />
 import AnimatedText, { ShimmerText } from '../react/AnimatedText.tsx';
+// Importação do componente React novo
 import SkillsList from '../react/Abilities.tsx';
+// Certifique-se que o LogoLoop existe ou remova a importação se não estiver usando
 import LogoLoop from '../components/LogoLoop.astro'; 
 
 // Defina seu usuário do GitHub aqui para carregar o gráfico correto
@@ -37,15 +39,19 @@ const githubChartUrl = `https://ghchart.rshah.org/60a5fa/${githubUsername}`;
         <AnimatedText 
           text="Hi, I'm Pedro Eduardo" 
           className="text-white tracking-tight"
-          delay={200}
+          delay={0}
           client:load
         />
       </div>
       <div class="block mt-1 sm:mt-2">
+        <!-- 
+           DELAY REDUZIDO: Alterado para 200ms. 
+           Isso garante que o texto apareça rápido, corrigindo a sensação de "travamento".
+        -->
         <AnimatedText 
           text="Software Developer"
           className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 bg-[length:200%_auto] animate-gradient tracking-tight"
-          delay={1000}
+          delay={200} 
           client:load
         />
       </div>
@@ -87,7 +93,7 @@ const githubChartUrl = `https://ghchart.rshah.org/60a5fa/${githubUsername}`;
             </a>
           </div>
           
-          <!-- Imagem do Gráfico - Substituída por <Image /> -->
+          <!-- Imagem do Gráfico -->
           <div class="overflow-x-auto custom-scrollbar pb-2 pt-1 flex justify-center">
             <Image 
               src={githubChartUrl} 

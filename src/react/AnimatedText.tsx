@@ -16,9 +16,10 @@ interface AnimatedTextProps {
 }
 
 export default function AnimatedText({ text, className = "", delay = 0 }: AnimatedTextProps) {
+  // CONFIGURAÇÃO OTIMIZADA (Correção do erro ts(6133))
+  // Transformado em objeto direto para evitar erros de variáveis não utilizadas
   const container: Variants = {
     hidden: { opacity: 0 },
-    // Removido parâmetro não utilizado
     visible: {
       opacity: 1,
       transition: { 
@@ -58,13 +59,13 @@ export default function AnimatedText({ text, className = "", delay = 0 }: Animat
       className={className}
     >
       {text.split(" ").map((word, index) => (
-        <motion.span 
-          variants={child} 
-          style={{ marginRight: "0.25em" }} 
-          key={index}
-        >
-          {word}
-        </motion.span>
+        <span key={index} style={{ display: "inline-block", marginRight: "0.25em" }}>
+          {Array.from(word).map((letter, i) => (
+            <motion.span key={i} variants={child} style={{ display: "inline-block" }}>
+              {letter}
+            </motion.span>
+          ))}
+        </span>
       ))}
     </motion.div>
   );
