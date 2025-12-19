@@ -22,7 +22,7 @@ const projects: Project[] = [
     image: null, // Substitua 'null' pela variável da imagem importada
     description: "This project is a React application that uses styled-components to create a responsive table. The table includes columns for Image (user thumbnail), Name, Job Title, Admission Data, and Phone Number, and has a search function that filters the information by job title, name, and phone number. Furthermore, each row in the table has a pure accordion pattern, created without additional frameworks.",
     link: "https://github.com/devpedroeduardo/bemobile-project",
-    preview: "https://projeto.vercel.app",
+    preview: "https://projeto.vercel.app", // Este link estava causando o problema se acessado
     status: "Archived",
     technologies: ["React", "Node.js", "styled-components"],
   },
@@ -53,8 +53,9 @@ const projects: Project[] = [
         {projects.map((project) => (
           <article class="group relative bg-gray-800/40 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col h-full opacity-0 animate-fade-in-up" style="animation-fill-mode: forwards;">
             
-            <!-- Imagem do Projeto -->
-            <a href={project.preview} target="_blank" rel="noopener noreferrer" class="relative block h-64 overflow-hidden cursor-pointer">
+            <!-- Imagem do Projeto (Clicável -> Repositório) -->
+            <!-- CORREÇÃO: Alterado de project.preview para project.link -->
+            <a href={project.link} target="_blank" rel="noopener noreferrer" class="relative block h-64 overflow-hidden cursor-pointer">
               <div class="absolute inset-0 bg-gray-900/20 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
               
               {project.image ? (
@@ -88,7 +89,8 @@ const projects: Project[] = [
             <div class="p-6 flex flex-col flex-grow">
               <div class="mb-4">
                 <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                  <a href={project.preview} target="_blank" rel="noopener noreferrer">{project.title}</a>
+                  <!-- CORREÇÃO: Alterado de project.preview para project.link -->
+                  <a href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
                 </h4>
                 <p class="text-neutral-400 text-sm leading-relaxed line-clamp-3">
                   {project.description}
