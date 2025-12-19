@@ -1,14 +1,14 @@
 ---
 // src/components/Footer.astro
-// Atualizado para usar imagens da pasta public/svg e corrigir links/estilos
+// Adicionando ícones SVG diretamente para não depender de pacotes externos
 ---
 
 <!-- 
-  Footer Transparente:
-  Mantém consistência com o resto do site, revelando o fundo fixo global.
-  ALTERADO: 'pb-20' adicionado para garantir espaço extra no final da página em mobile.
+  ALTERAÇÃO: 
+  Mudei de 'py-12' para 'pt-12 pb-24'. 
+  O 'pb-24' (96px) garante uma margem de segurança extra no fundo para dispositivos móveis.
 -->
-<footer class="relative w-full pt-12 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+<footer class="relative w-full pt-12 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
   
   <!-- Linha Separadora -->
   <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>

@@ -1,13 +1,13 @@
 ---
 // src/components/Hero.astro
+import { Image } from 'astro:assets'; // Importar o componente Image
 import AnimatedText, { ShimmerText } from '../react/AnimatedText.tsx';
-// Importação do componente React novo
 import SkillsList from '../react/Abilities.tsx';
-// Certifique-se que o LogoLoop existe ou remova a importação se não estiver usando
 import LogoLoop from '../components/LogoLoop.astro'; 
 
 // Defina seu usuário do GitHub aqui para carregar o gráfico correto
 const githubUsername = "devpedroeduardo"; 
+const githubChartUrl = `https://ghchart.rshah.org/60a5fa/${githubUsername}`;
 ---
 
 <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-20 pb-20">
@@ -68,7 +68,7 @@ const githubUsername = "devpedroeduardo";
        <LogoLoop />
     </div>
 
-    <!-- GitHub Contributions Chart -->
+    <!-- GitHub Contributions Chart (Redesenhado) -->
     <div class="w-full max-w-3xl mx-auto mb-12 px-4 opacity-0 animate-fade-in-up" style="animation-delay: 1.4s; animation-fill-mode: forwards;">
       <div class="relative p-5 rounded-2xl border border-white/10 bg-gray-900/60 backdrop-blur-md overflow-hidden group hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-900/20 transition-all duration-500">
         
@@ -87,13 +87,15 @@ const githubUsername = "devpedroeduardo";
             </a>
           </div>
           
-          <!-- Imagem do Gráfico -->
+          <!-- Imagem do Gráfico - Substituída por <Image /> -->
           <div class="overflow-x-auto custom-scrollbar pb-2 pt-1 flex justify-center">
-            <img 
-              src={`https://ghchart.rshah.org/60a5fa/${githubUsername}`} 
+            <Image 
+              src={githubChartUrl} 
               alt={`${githubUsername}'s Github chart`} 
+              width={700}
+              height={120}
               class="w-full min-w-[600px] h-auto opacity-70 group-hover:opacity-100 transition-opacity duration-500"
-              loading="lazy"
+              loading="eager"
             />
           </div>
         </div>
