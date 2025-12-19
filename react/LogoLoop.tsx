@@ -1,20 +1,19 @@
 import { motion } from 'framer-motion';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiAstro, SiNodedotjs } from 'react-icons/si';
 
-// Definindo a interface para os itens do logo
 interface LogoItem {
   node: React.ReactNode;
   title: string;
   href: string;
 }
 
-// Interface para as props do componente (opcional, para evitar erro de IntrinsicAttributes)
+// Interface flexível para evitar erros de tipagem se props extras forem passadas
 interface LogoLoopProps {
-  logos?: LogoItem[]; // Opcional, se passado substitui o padrão
-  [key: string]: any; // Permite outras props genéricas para evitar quebra
+  logos?: LogoItem[];
+  [key: string]: any; 
 }
 
-const defaultTechLogos: LogoItem[] = [
+const techLogos: LogoItem[] = [
   { node: <SiReact />, title: "React", href: "https://react.dev" },
   { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
   { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
@@ -24,15 +23,11 @@ const defaultTechLogos: LogoItem[] = [
 ];
 
 export default function LogoLoop({ logos: customLogos, ...props }: LogoLoopProps) {
-  // Usa logos customizados se passados, senão usa o padrão
-  const items = customLogos || defaultTechLogos;
-  
-  // Duplicamos/Triplicamos para o loop infinito
-  const loopItems = [...items, ...items, ...items];
+  const items = customLogos || techLogos;
+  const logos = [...items, ...items, ...items];
 
   return (
     <div className="relative w-full overflow-hidden bg-gray-900/50 backdrop-blur-sm py-10 border-y border-white/5" {...props}>
-      {/* Máscaras de degradê */}
       <div className="absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-gray-900 to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-gray-900 to-transparent pointer-events-none" />
 
@@ -45,7 +40,7 @@ export default function LogoLoop({ logos: customLogos, ...props }: LogoLoopProps
           repeat: Infinity,
         }}
       >
-        {loopItems.map((tech, index) => (
+        {logos.map((tech, index) => (
           <a
             key={index}
             href={tech.href}

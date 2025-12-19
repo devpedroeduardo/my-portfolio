@@ -19,7 +19,7 @@ export default function AnimatedText({ text, className = "", delay = 0 }: Animat
   // Configuração da animação com tipagem explícita 'Variants'
   const container: Variants = {
     hidden: { opacity: 0 },
-    // Removida a função não utilizada, agora é um objeto direto
+    // Correção: Removida a função com parâmetro 'i' não utilizado
     visible: {
       opacity: 1,
       transition: { 
