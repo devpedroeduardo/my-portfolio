@@ -1,16 +1,18 @@
 import { motion } from 'framer-motion';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiAstro, SiNodedotjs } from 'react-icons/si';
+import type { HTMLAttributes } from 'react';
 
+// Definindo a interface para os itens do logo
 interface LogoItem {
   node: React.ReactNode;
   title: string;
   href: string;
 }
 
-// Interface flexível para evitar erros de tipagem se props extras forem passadas
-interface LogoLoopProps {
+// Interface estendendo HTMLAttributes para aceitar props padrão de div (className, id, etc)
+// e tornando 'logos' opcional
+interface LogoLoopProps extends HTMLAttributes<HTMLDivElement> {
   logos?: LogoItem[];
-  [key: string]: any; 
 }
 
 const techLogos: LogoItem[] = [
@@ -22,12 +24,19 @@ const techLogos: LogoItem[] = [
   { node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
 ];
 
-export default function LogoLoop({ logos: customLogos, ...props }: LogoLoopProps) {
+export default function LogoLoop({ logos: customLogos, className, ...props }: LogoLoopProps) {
+  // Usa logos customizados se passados, senão usa o padrão
   const items = customLogos || techLogos;
+  
+  // Triplicamos para garantir que cubra telas largas sem buracos na animação
   const logos = [...items, ...items, ...items];
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-900/50 backdrop-blur-sm py-10 border-y border-white/5" {...props}>
+    <div 
+      className={`relative w-full overflow-hidden bg-gray-900/50 backdrop-blur-sm py-10 border-y border-white/5 ${className || ''}`} 
+      {...props}
+    >
+      {/* Máscaras de degradê nas laterais para suavizar a entrada/saída */}
       <div className="absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-gray-900 to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-gray-900 to-transparent pointer-events-none" />
 
@@ -35,7 +44,7 @@ export default function LogoLoop({ logos: customLogos, ...props }: LogoLoopProps
         className="flex gap-12 min-w-max"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
-          duration: 30,
+          duration: 30, // Velocidade do loop (maior = mais lento)
           ease: "linear",
           repeat: Infinity,
         }}
@@ -54,6 +63,7 @@ export default function LogoLoop({ logos: customLogos, ...props }: LogoLoopProps
               {tech.node}
             </div>
             
+            {/* Tooltip simples */}
             <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
               {tech.title}
             </span>

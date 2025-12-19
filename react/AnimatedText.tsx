@@ -19,7 +19,7 @@ export default function AnimatedText({ text, className = "", delay = 0 }: Animat
   // Configuração da animação com tipagem explícita 'Variants'
   const container: Variants = {
     hidden: { opacity: 0 },
-    // Correção: Removida a função com parâmetro 'i' não utilizado
+    // Correção: Removida a função com parâmetro 'i' não utilizado e o styles não utilizado
     visible: {
       opacity: 1,
       transition: { 
@@ -49,6 +49,8 @@ export default function AnimatedText({ text, className = "", delay = 0 }: Animat
       },
     },
   };
+
+  // Removida a variável 'styles' que causava o warning ts(6133)
 
   return (
     <motion.div
