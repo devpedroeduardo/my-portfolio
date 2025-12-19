@@ -8,7 +8,13 @@ interface LogoItem {
   href: string;
 }
 
-const techLogos: LogoItem[] = [
+// Interface para as props do componente (opcional, para evitar erro de IntrinsicAttributes)
+interface LogoLoopProps {
+  logos?: LogoItem[]; // Opcional, se passado substitui o padrão
+  [key: string]: any; // Permite outras props genéricas para evitar quebra
+}
+
+const defaultTechLogos: LogoItem[] = [
   { node: <SiReact />, title: "React", href: "https://react.dev" },
   { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
   { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
@@ -17,14 +23,16 @@ const techLogos: LogoItem[] = [
   { node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
 ];
 
-export default function LogoLoop() {
-  // Duplicamos o array para criar o efeito infinito perfeito
-  // Triplicamos para garantir que cubra telas largas sem buracos na animação
-  const logos = [...techLogos, ...techLogos, ...techLogos];
+export default function LogoLoop({ logos: customLogos, ...props }: LogoLoopProps) {
+  // Usa logos customizados se passados, senão usa o padrão
+  const items = customLogos || defaultTechLogos;
+  
+  // Duplicamos/Triplicamos para o loop infinito
+  const loopItems = [...items, ...items, ...items];
 
   return (
-    <div className="relative w-full overflow-hidden bg-gray-900/50 backdrop-blur-sm py-10 border-y border-white/5">
-      {/* Máscaras de degradê nas laterais para suavizar a entrada/saída */}
+    <div className="relative w-full overflow-hidden bg-gray-900/50 backdrop-blur-sm py-10 border-y border-white/5" {...props}>
+      {/* Máscaras de degradê */}
       <div className="absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-gray-900 to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-gray-900 to-transparent pointer-events-none" />
 
@@ -32,12 +40,12 @@ export default function LogoLoop() {
         className="flex gap-12 min-w-max"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
-          duration: 30, // Velocidade do loop (maior = mais lento)
+          duration: 30,
           ease: "linear",
           repeat: Infinity,
         }}
       >
-        {logos.map((tech, index) => (
+        {loopItems.map((tech, index) => (
           <a
             key={index}
             href={tech.href}

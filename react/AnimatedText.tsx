@@ -19,8 +19,7 @@ export default function AnimatedText({ text, className = "", delay = 0 }: Animat
   // Configuração da animação com tipagem explícita 'Variants'
   const container: Variants = {
     hidden: { opacity: 0 },
-    // A função visible não precisa receber argumento se não for usado, 
-    // mas para manter compatibilidade com variantes dinâmicas, deixamos assim.
+    // Removida a função não utilizada, agora é um objeto direto
     visible: {
       opacity: 1,
       transition: { 
