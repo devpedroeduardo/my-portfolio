@@ -4,7 +4,10 @@ export function ShimmerText({ children }: { children: React.ReactNode }) {
   return (
     <span className="relative inline-block overflow-hidden group">
       <span className="relative z-10">{children}</span>
-      <span className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-shimmer" />
+      {/* CORREÇÃO 1: Removido 'group-hover:' 
+        Agora a animação 'animate-shimmer' roda sempre.
+      */}
+      <span className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer" />
     </span>
   );
 }
@@ -16,14 +19,14 @@ interface AnimatedTextProps {
 }
 
 export default function AnimatedText({ text, className = "", delay = 0 }: AnimatedTextProps) {
-  // CONFIGURAÇÃO OTIMIZADA (Correção do erro ts(6133))
-  // Transformado em objeto direto para evitar erros de variáveis não utilizadas
   const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { 
-        staggerChildren: 0.05, 
+        // CORREÇÃO 2: Aumentado de 0.05 para 0.08
+        // Isso deixa a digitação mais lenta e fluida, evitando o "travamento" visual.
+        staggerChildren: 0.08, 
         delayChildren: delay / 1000 
       },
     },

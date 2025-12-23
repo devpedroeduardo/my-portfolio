@@ -3,32 +3,29 @@
 ---
 <!-- 
   Container principal: 
-  - Fixo no topo, largura total, z-index muito alto (z-50).
-  - 'group' permite que elementos filhos reajam ao hover neste container.
-  - 'py-6' cria uma área de hover maior para facilitar a interação.
-  - 'pointer-events-none' no container pai permite clicar através dele quando o menu está oculto.
+  - Fixo no topo (z-50).
+  - 'pointer-events-none' garante que a área vazia ao redor da barra não bloqueie cliques na página.
 -->
-<header class="fixed top-0 left-0 w-full z-50 group py-6 transition-all duration-300 pointer-events-none hover:pointer-events-auto">
+<header class="fixed top-0 left-0 w-full z-50 py-6 pointer-events-none">
   
   <!-- 
-    Navbar (o elemento visível):
-    - Pointer events auto para permitir cliques nos links.
-    - Espaçamento ajustado.
+    Navbar (Sempre visível):
+    - 'pointer-events-auto' reativa os cliques nos botões.
+    - Removidas as classes de opacidade e translação (hover).
+    - Mantido o estilo glassmorphism.
   -->
-  <nav class="pointer-events-auto flex justify-between items-center w-auto max-w-md mx-auto px-10 py-4
-              bg-gray-900/90 backdrop-blur-xl rounded-full
-              border border-gray-700/50 shadow-2xl shadow-blue-900/20
-              opacity-0 -translate-y-full group-hover:opacity-100 group-hover:translate-y-0
-              transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)">
+  <nav class="pointer-events-auto flex justify-between items-center w-auto max-w-fit mx-auto px-8 sm:px-10 py-4
+              bg-gray-900/80 backdrop-blur-md rounded-full
+              border border-white/10 shadow-lg shadow-black/10
+              transition-all duration-300">
 
-    <!-- Links com efeito de brilho -->
-    <div class="flex w-full justify-center gap-x-8 sm:gap-x-10 text-sm font-medium text-neutral-400">
+    <!-- Links de Navegação -->
+    <div class="flex w-full justify-center gap-x-6 sm:gap-x-10 text-sm font-medium text-neutral-400 whitespace-nowrap">
       <a 
         href="#hero" 
         class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300"
       >Home</a>
       
-      <!-- Novo Link About -->
       <a 
         href="#about" 
         class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300"
