@@ -2,7 +2,6 @@
 // src/layouts/MainLayout.astro
 import '@/styles/global.css'; 
 import Header from '@/components/Header.astro';
-// Footer removido daqui para evitar duplicação, já que está no index.astro
 // import Footer from '@/components/Footer.astro'; 
 
 interface Props {
@@ -19,7 +18,6 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     
-    <!-- FAVICONS -->
     <link rel="icon" type="image/svg+xml" href="/favicon/P.svg" />
   
 
@@ -29,7 +27,6 @@ const { title, description } = Astro.props;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Script para forçar scroll para o topo ao recarregar -->
     <script is:inline>
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
@@ -45,7 +42,6 @@ const { title, description } = Astro.props;
     <main>
       <slot /> 
     </main>
-    <!-- Footer removido daqui pois já é chamado nas páginas individuais -->
   </body>
 </html>
 

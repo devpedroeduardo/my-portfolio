@@ -2,14 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variáveis CSS personalizadas */
 :root {
   --white: #ffffff;
   --white-icon: rgba(255, 255, 255, 0.9);
   --max-width: 1400px;
 }
 
-/* Reset e estilos base */
 html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
@@ -21,7 +19,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Responsividade de texto base */
 @media (max-width: 640px) {
   html {
     font-size: 14px;
@@ -40,20 +37,18 @@ body {
   }
 }
 
-/* Estilos de acessibilidade */
 :focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
-/* Melhoria de leitura em telas pequenas */
+
 @media (max-width: 640px) {
   p, li {
     line-height: 1.6;
   }
 }
 
-/* Estilos de scrollbar */
 ::-webkit-scrollbar { 
   width: 8px; 
 }
@@ -71,7 +66,6 @@ body {
   background: #30363d; 
 }
 
-/* Classes utilitárias */
 .container-responsive {
   width: 100%;
   margin-left: auto;
@@ -95,7 +89,6 @@ body {
   }
 }
 
-/* Melhorias de acessibilidade para interação */
 a, button {
   transition: all 0.2s ease;
 }
@@ -106,7 +99,6 @@ a:focus-visible, button:focus-visible {
   border-radius: 0.25rem;
 }
 
-/* Melhorias de interação para dispositivos touch */
 @media (hover: none) {
   a:active, button:active {
     opacity: 0.7;
@@ -216,7 +208,6 @@ a:focus-visible, button:focus-visible {
     animation: scroll 2s ease-in-out infinite;
   }
 
-  /* Responsive adjustments */
   @media (max-width: 640px) {
     .particle {
       display: none;
@@ -238,7 +229,6 @@ a:focus-visible, button:focus-visible {
     }
   }
 
-  /* Add AnimatedText animations to global scope */
   @keyframes wave {
     0%, 100% {
       transform: translateY(0);

@@ -1,17 +1,14 @@
 ---
 // src/components/Footer.astro
-// Atualizado para usar imagens da pasta public/svg com os nomes corretos (Case Sensitive)
 ---
 
 <footer class="relative w-full pt-12 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
   
-  <!-- Linha Separadora -->
   <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
       
-      <!-- Coluna 1: Redes Sociais -->
       <div class="flex flex-col items-center lg:items-start space-y-6">
         <h4 class="text-white font-bold text-lg">Connect</h4>
         <div class="flex flex-wrap justify-center lg:justify-start gap-4">
@@ -61,14 +58,12 @@
         </div>
       </div>
 
-      <!-- Coluna 2: Tech Stack (Minimalista) -->
       <div class="flex flex-col items-center lg:items-start space-y-6">
         <h4 class="text-white font-bold text-lg">Tech Stack</h4>
         <div class="space-y-4 w-full max-w-xs">
            <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
               <span class="text-neutral-400 text-sm">Built with</span>
               <span class="flex items-center gap-2 text-white font-medium">
-                 <!-- Usando imagem da pasta public com nome minúsculo para garantir -->
                  <img src="/svg/astro.svg" alt="Astro Logo" class="w-5 h-5" width="20" height="20" loading="lazy" decoding="async" />
                  Astro
               </span>
@@ -76,7 +71,6 @@
            <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
               <span class="text-neutral-400 text-sm">Styled with</span>
               <span class="flex items-center gap-2 text-blue-300 font-medium">
-                 <!-- CORREÇÃO: Usando 'tailwindcss.svg' (tudo minúsculo para corresponder ao arquivo) -->
                  <img src="/svg/tailwindcss.svg" alt="Tailwind CSS Logo" class="w-5 h-5" width="20" height="20" loading="lazy" decoding="async" />
                  Tailwind
               </span>
@@ -84,7 +78,6 @@
            <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
               <span class="text-neutral-400 text-sm">Deployed on</span>
               <span class="flex items-center gap-2 text-white font-medium">
-                 <!-- Adicionado classe invert para garantir visibilidade se o SVG for preto -->
                  <img src="/svg/vercel.svg" alt="Vercel Logo" class="w-5 h-5 invert" width="20" height="20" loading="lazy" decoding="async" />
                  Vercel
               </span>
@@ -92,11 +85,9 @@
         </div>
       </div>
 
-      <!-- Coluna 3: Spotify & Inovação (Now Playing / Quote) -->
       <div class="flex flex-col items-center lg:items-start space-y-6">
         <h4 class="text-white font-bold text-lg">Vibes</h4>
         
-        <!-- Spotify Embed (Playlist Atualizada) -->
         <div class="w-full max-w-xs overflow-hidden rounded-xl border border-white/5 shadow-lg bg-black">
           <iframe
             style="border-radius:12px"
@@ -109,7 +100,6 @@
           ></iframe>
         </div>
 
-        <!-- Inovação: Card "Daily Wisdom" ou Status -->
         <div class="w-full max-w-xs p-4 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-xl border border-white/10 backdrop-blur-sm">
             <div class="flex items-center gap-3 mb-2">
                 <span class="relative flex h-3 w-3">
@@ -126,10 +116,9 @@
       </div>
     </div>
 
-    <!-- Copyright -->
     <div class="mt-16 pt-8 border-t border-white/5 text-center">
       <p class="text-neutral-500 text-sm">
-        &copy; {new Date().getFullYear()} <span class="text-white font-medium">Pedro Eduardo</span>. 
+        &copy; {new Date().getFullYear()} <span class="text-white font-medium"><a href="https://github.com/devpedroeduardo">Pedro Eduardo</a></span>. 
         Built with passion and coffee.
       </p>
     </div>

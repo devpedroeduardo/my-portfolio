@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiAstro, SiNodedotjs } from 'react-icons/si';
 
-// Definindo a interface para os itens do logo
 interface LogoItem {
   node: React.ReactNode;
   title: string;
@@ -19,13 +18,10 @@ const techLogos: LogoItem[] = [
 ];
 
 export default function LogoLoop() {
-  // Duplicamos o array para criar o efeito infinito perfeito
-  // Triplicamos para garantir que cubra telas largas sem buracos na animação
   const logos = [...techLogos, ...techLogos, ...techLogos];
 
   return (
     <div className="relative w-full overflow-hidden bg-gray-900/50 backdrop-blur-sm py-10 border-y border-white/5">
-      {/* Máscaras de degradê nas laterais para suavizar a entrada/saída */}
       <div className="absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-gray-900 to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-gray-900 to-transparent pointer-events-none" />
 
@@ -33,7 +29,7 @@ export default function LogoLoop() {
         className="flex gap-12 min-w-max"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
-          duration: 30, // Velocidade do loop (maior = mais lento)
+          duration: 30,
           ease: "linear",
           repeat: Infinity,
         }}
@@ -48,16 +44,9 @@ export default function LogoLoop() {
             title={tech.title}
             aria-label={`Link para ${tech.title}`}
           >
-            {/* NOTA: Se você substituir esses ícones por tags <img />, 
-               certifique-se de adicionar a propriedade loading="eager" nelas 
-               para corrigir o aviso "Unoptimized loading attribute".
-               Exemplo: <img src="..." loading="eager" alt="..." />
-            */}
             <div className="text-4xl text-neutral-500 transition-all duration-300 group-hover:text-white group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
               {tech.node}
             </div>
-            
-            {/* Tooltip simples */}
             <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
               {tech.title}
             </span>
