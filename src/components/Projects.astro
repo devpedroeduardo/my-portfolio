@@ -1,44 +1,65 @@
 ---
 import { Image } from "astro:assets";
-// Importe suas imagens aqui quando tiver, ex:
-// import projectImage1 from "../assets/project1.png";
+
+// 1. IMPORTAÇÃO DAS IMAGENS:
+import finpocket1 from "../assets/my-finpocket-1.png";
+import finpocket2 from "../assets/my-finpocket-2.png";
+import bemobile1 from "../assets/bemobile-1.png";
+import bemobile2 from "../assets/bemobile-2.png";
 
 interface Project {
+  id: string; 
   title: string;
-  image: ImageMetadata | null; // Nullable para lidar com placeholder se não tiver imagem
+  image: ImageMetadata | null; 
+  // Agora aceitamos o objeto da imagem direto (ImageMetadata) ou string (para imagens da public/)
+  modalImages: (ImageMetadata | string)[]; 
   description: string;
+  longDescription?: string; 
   link: string;
   preview: string;
   status: "Deployed" | "In Progress" | "Contributor" | "Archived";
   technologies: string[];
 }
 
-// ARRAY DE PROJETOS (Vazio por padrão)
-// Preencha este array com seus projetos reais.
+// ARRAY DE PROJETOS
 const projects: Project[] = [
- // --- EXEMPLO DE ESTRUTURA ---
   {
+    id: "bemobile",
     title: "BeMobileProject",
-    image: null, // Substitua 'null' pela variável da imagem importada
-    description: "This project is a React application that uses styled-components to create a responsive table. The table includes columns for Image (user thumbnail), Name, Job Title, Admission Data, and Phone Number, and has a search function that filters the information by job title, name, and phone number. Furthermore, each row in the table has a pure accordion pattern, created without additional frameworks.",
+    image: bemobile1, 
+    modalImages: [
+      bemobile1, // CORREÇÃO: Passando o objeto direto em vez do '.src'
+      bemobile2  // CORREÇÃO: Passando o objeto direto
+    ],
+    description: "This project is a React application that uses styled-components to create a responsive table...",
+    longDescription: "This project is a React application that uses styled-components to create a responsive table. The table includes columns for Image (user thumbnail), Name, Job Title, Admission Data, and Phone Number, and has a search function that filters the information by job title, name, and phone number. Furthermore, each row in the table has a pure accordion pattern, created without additional frameworks.",
     link: "https://github.com/devpedroeduardo/bemobile-project",
-    preview: "https://github.com/devpedroeduardo/bemobile-project", // Este link estava causando o problema se acessado
+    preview: "https://github.com/devpedroeduardo/bemobile-project", 
     status: "Archived",
     technologies: ["React", "Node.js", "styled-components"],
   },
-  
+  {
+    id: "MyFinPocket",
+    title: "MyFinPocket",
+    image: finpocket1, 
+    modalImages: [
+      finpocket1, // CORREÇÃO: Passando o objeto direto em vez do '.src'
+      finpocket2  // CORREÇÃO: Passando o objeto direto
+    ],
+    description: "An application designed to help users manage their finances more efficiently.",
+    longDescription: "MyFinPocket is a smart and modern financial assistant focused on giving users complete control over their finances. Built with a Software as a Service (SaaS) architecture, it goes far beyond a simple expense tracker: it features artificial intelligence for analysis, automated reconciliation of PDF invoices, and an advanced batch payment system.",
+    link: "https://github.com/devpedroeduardo/my-finpocket",
+    preview: "https://my-finpocket.vercel.app/", 
+    status: "Deployed",
+    technologies: ["React.js", "Next.js", "TailwindCSS", "TypeScript"],
+  }
 ];
 ---
 
-<!-- 
-  NOTA: Removido 'bg-gray-900' e os elementos de background internos.
-  Agora este componente é transparente e utiliza o background FIXED definido no Hero.astro.
--->
 <section id="projects" class="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden border-t border-white/5">
   
   <div class="relative z-10 max-w-6xl mx-auto">
     
-    <!-- Header da Seção -->
     <div class="text-center mb-16 opacity-0 animate-fade-in-up" style="animation-fill-mode: forwards;">
       <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">My Work</h2>
       <h3 class="text-3xl md:text-5xl font-bold text-white">Featured Projects</h3>
@@ -47,15 +68,18 @@ const projects: Project[] = [
       </p>
     </div>
 
-    <!-- Grid de Projetos -->
     {projects.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project) => (
           <article class="group relative bg-gray-800/40 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col h-full opacity-0 animate-fade-in-up" style="animation-fill-mode: forwards;">
             
-            <!-- Imagem do Projeto (Clicável -> Repositório) -->
-            <!-- CORREÇÃO: Alterado de project.preview para project.link -->
-            <a href={project.link} target="_blank" rel="noopener noreferrer" class="relative block h-64 overflow-hidden cursor-pointer">
+            <button 
+              class="open-modal-btn relative block h-64 w-full overflow-hidden cursor-pointer text-left focus:outline-none"
+              data-id={project.id}
+              data-title={project.title}
+              data-desc={project.longDescription || project.description}
+              data-link={project.link}
+            >
               <div class="absolute inset-0 bg-gray-900/20 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
               
               {project.image ? (
@@ -65,7 +89,6 @@ const projects: Project[] = [
                   class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
               ) : (
-                // Fallback se não tiver imagem definida
                 <div class="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -73,7 +96,6 @@ const projects: Project[] = [
                 </div>
               )}
               
-              <!-- Badge de Status -->
               <div class="absolute top-4 right-4 z-20">
                 <span class={`px-3 py-1 text-xs font-semibold text-white backdrop-blur-md rounded-full border border-white/10 shadow-lg ${
                   project.status === 'Deployed' ? 'bg-green-500/20 border-green-500/30 text-green-300' :
@@ -83,21 +105,26 @@ const projects: Project[] = [
                   {project.status}
                 </span>
               </div>
-            </a>
+            </button>
 
-            <!-- Conteúdo do Card -->
             <div class="p-6 flex flex-col flex-grow">
               <div class="mb-4">
                 <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                  <!-- CORREÇÃO: Alterado de project.preview para project.link -->
-                  <a href={project.link} target="_blank" rel="noopener noreferrer">{project.title}</a>
+                  <button 
+                    class="open-modal-btn text-left focus:outline-none"
+                    data-id={project.id}
+                    data-title={project.title}
+                    data-desc={project.longDescription || project.description}
+                    data-link={project.link}
+                  >
+                    {project.title}
+                  </button>
                 </h4>
                 <p class="text-neutral-400 text-sm leading-relaxed line-clamp-3">
                   {project.description}
                 </p>
               </div>
 
-              <!-- Tech Stack (Tags) -->
               <div class="flex flex-wrap gap-2 mb-6 mt-auto">
                 {project.technologies.map((tech) => (
                   <span class="px-2.5 py-1 text-xs font-medium text-blue-200 bg-blue-500/10 rounded-md border border-blue-500/10">
@@ -106,7 +133,6 @@ const projects: Project[] = [
                 ))}
               </div>
 
-              <!-- Links de Ação -->
               <div class="flex items-center gap-4 pt-4 border-t border-white/5">
                 <a 
                   href={project.link} 
@@ -139,7 +165,6 @@ const projects: Project[] = [
         ))}
       </div>
     ) : (
-      // ESTADO VAZIO: Placeholder elegante quando não há projetos
       <div class="relative flex flex-col items-center justify-center py-24 text-center border border-dashed border-gray-700/50 rounded-3xl bg-gray-800/10 backdrop-blur-sm">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-800/5 to-gray-800/20 rounded-3xl pointer-events-none"></div>
         <div class="relative z-10 mb-6 p-5 bg-gray-800 rounded-full text-blue-400 shadow-xl shadow-blue-900/10 ring-1 ring-white/10">
@@ -152,21 +177,167 @@ const projects: Project[] = [
       </div>
     )}
 
-    <!-- Botão "More Projects" -->
-    <div class="mt-16 text-center opacity-0 animate-fade-in-up" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
-      <a
-        href="https://github.com/devpedroeduardo?tab=repositories"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-3 px-8 py-4 text-base font-semibold text-white bg-gray-800/80 hover:bg-gray-800 border border-gray-700/50 rounded-full transition-all duration-300 hover:scale-105 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 group backdrop-blur-md"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" class="text-white group-hover:text-blue-400 transition-colors">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-        </svg>
-        <span>More projects on GitHub</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400 group-hover:translate-x-1 group-hover:text-white transition-all"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-
   </div>
 </section>
+
+<!-- MODAL ATUALIZADO -->
+<dialog id="project-modal" class="backdrop:bg-black/80 bg-gray-900 border border-white/10 rounded-2xl w-[90%] max-w-4xl p-0 shadow-2xl overflow-hidden backdrop-blur-md transition-all duration-300 m-auto">
+  <div class="flex flex-col h-full max-h-[85vh]">
+    
+    <div class="flex justify-between items-center p-6 border-b border-white/10 bg-gray-800/50 sticky top-0 z-20">
+      <h3 id="modal-title" class="text-2xl font-bold text-white">Project Title</h3>
+      <button id="close-modal" class="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover:bg-gray-700 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <div class="p-6 overflow-y-auto custom-scrollbar relative">
+      
+      <!-- Galerias Pré-Renderizadas pelo Astro -->
+      <div id="modal-galleries-container" class="mb-16 min-h-[50vh]">
+        {projects.map(project => (
+          <div id={`gallery-${project.id}`} class="project-gallery hidden flex-col gap-6">
+            {project.modalImages && project.modalImages.length > 0 ? (
+              project.modalImages.map((img) => (
+                <div class="w-full rounded-xl overflow-hidden border border-white/10 bg-gray-900 shadow-xl shadow-black/20">
+                  {typeof img === 'string' ? (
+                    <img src={img} alt={`${project.title} screenshot`} class="w-full h-auto object-cover" loading="lazy" />
+                  ) : (
+                    <Image src={img} alt={`${project.title} screenshot`} class="w-full h-auto object-cover" />
+                  )}
+                </div>
+              ))
+            ) : (
+              <div class="text-neutral-500 italic p-4 bg-gray-800/30 rounded-xl border border-white/5 text-center">No screenshots available.</div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <!-- Container da Descrição -->
+      <div id="desc-container" class="prose prose-invert max-w-none opacity-0 translate-y-12 transition-all duration-700 ease-out pb-8">
+        <h4 class="text-2xl font-semibold text-blue-400 mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          About this project
+        </h4>
+        <p id="modal-desc" class="text-neutral-300 leading-relaxed text-lg bg-gray-800/30 p-6 rounded-xl border border-white/5"></p>
+      </div>
+    </div>
+
+    <div class="p-6 border-t border-white/10 bg-gray-800/50 flex justify-end sticky bottom-0 z-20">
+      <a 
+        id="modal-link" 
+        href="https://github.com/devpedroeduardo" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg shadow-blue-500/20"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const modal = document.getElementById('project-modal') as HTMLDialogElement;
+  const openBtns = document.querySelectorAll('.open-modal-btn');
+  const closeBtn = document.getElementById('close-modal');
+  
+  const titleEl = document.getElementById('modal-title');
+  const descEl = document.getElementById('modal-desc');
+  const linkEl = document.getElementById('modal-link');
+  const descContainer = document.getElementById('desc-container');
+
+  // Configura o observador de interseção (Scroll Reveal)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('opacity-0', 'translate-y-12');
+        entry.target.classList.add('opacity-100', 'translate-y-0');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  if (descContainer) {
+    observer.observe(descContainer);
+  }
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const title = btn.getAttribute('data-title');
+      const desc = btn.getAttribute('data-desc');
+      const link = btn.getAttribute('data-link');
+
+      // Reinicia a animação da descrição sempre que abre o modal
+      if (descContainer) {
+        descContainer.classList.remove('opacity-100', 'translate-y-0');
+        descContainer.classList.add('opacity-0', 'translate-y-12');
+      }
+
+      if (titleEl) titleEl.textContent = title;
+      if (descEl) descEl.textContent = desc;
+      if (linkEl) (linkEl as HTMLAnchorElement).href = link || 'https://github.com/devpedroeduardo';
+      
+      // Lógica de esconder/mostrar a galeria do projeto correto
+      document.querySelectorAll('.project-gallery').forEach(gallery => {
+        gallery.classList.add('hidden');
+        gallery.classList.remove('flex');
+      });
+
+      const activeGallery = document.getElementById(`gallery-${id}`);
+      if (activeGallery) {
+        activeGallery.classList.remove('hidden');
+        activeGallery.classList.add('flex');
+      }
+
+      modal?.showModal();
+      document.body.style.overflow = 'hidden'; 
+      
+      const modalBody = modal.querySelector('.overflow-y-auto');
+      if (modalBody) modalBody.scrollTop = 0;
+    });
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    modal?.close();
+    document.body.style.overflow = 'auto'; 
+  });
+
+  modal?.addEventListener('click', (e) => {
+    const dialogDimensions = modal.getBoundingClientRect();
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      modal.close();
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(31, 41, 55, 0.5); 
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.5); 
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.8); 
+  }
+  
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+  }
+</style>
