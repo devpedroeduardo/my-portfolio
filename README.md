@@ -22,6 +22,10 @@
 - **Sobre:** trajetória, contatos e download do currículo.
 - **Contato:** formas de falar comigo.
 
+## 🌎 Português e inglês
+
+O site tem duas versões: português em `/` e inglês em `/en/`, com um botão PT/EN no menu. Cada componente recebe o idioma (`lang`) e escolhe seus textos com a função `pick` de `src/i18n`. As duas páginas são geradas no build e se apontam com `hreflang`, para que buscadores mostrem a versão certa a cada visitante.
+
 ## 🧩 Decisões técnicas
 
 - **Astro com ilhas React:** a página é gerada como HTML estático e só os componentes interativos (texto animado, faixa de logos, habilidades) carregam JavaScript no navegador. O resultado é um site leve e rápido.
@@ -35,9 +39,10 @@
 
 ```
 src/
-├── pages/index.astro     # página única que monta as seções
+├── pages/               # index.astro (português) e en/index.astro (inglês)
+├── i18n/                # idiomas e função pick
 ├── layouts/              # layout base (metadados, fontes, tema)
-├── components/           # seções: Hero, Projects, Services, Experience, About, Contact
+├── components/           # HomePage e as seções: Hero, Projects, Services, Experience, About, Contact
 ├── react/                # componentes interativos: AnimatedText, LogoLoop, Abilities
 ├── assets/               # prints dos projetos e foto
 └── styles/global.css

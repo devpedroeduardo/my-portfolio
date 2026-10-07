@@ -2,22 +2,27 @@
 // src/layouts/MainLayout.astro
 import '@/styles/global.css'; 
 import Header from '@/components/Header.astro';
+import { homePath, type Lang } from '../i18n';
 // import Footer from '@/components/Footer.astro'; 
 
 interface Props {
   title: string;
   description: string;
+  lang?: Lang;
 }
 
-const { title, description } = Astro.props;
+const { title, description, lang = 'pt' } = Astro.props;
+const htmlLang = lang === 'en' ? 'en' : 'pt-BR';
 
 // Na Vercel, o endereço de produção vem do build; localmente, usa a URL atual.
 const base = Astro.site ?? Astro.url;
 const ogImage = new URL('/og.png', base).toString();
 const pageUrl = new URL(Astro.url.pathname, base).toString();
+const ptUrl = new URL(homePath.pt, base).toString();
+const enUrl = new URL(homePath.en, base).toString();
 ---
 <!doctype html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang={htmlLang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -28,9 +33,12 @@ const pageUrl = new URL(Astro.url.pathname, base).toString();
 
     <title>{title}</title>
     <link rel="canonical" href={pageUrl} />
+    <link rel="alternate" hreflang="pt-BR" href={ptUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={ptUrl} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'pt_BR'} />
     <meta property="og:site_name" content="Pedro Eduardo" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -59,7 +67,7 @@ const pageUrl = new URL(Astro.url.pathname, base).toString();
     </script>
   </head>
   <body class="bg-gray-900 text-neutral-200 font-sans antialiased selection:bg-blue-500/30 selection:text-blue-200">
-    <Header />
+    <Header lang={lang} />
     <main>
       <slot /> 
     </main>

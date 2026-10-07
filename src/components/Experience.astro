@@ -1,5 +1,6 @@
 ---
 // src/components/Experience.astro
+import { pick, type Lang } from "../i18n";
 interface Item {
   periodo: string;
   cargo: string;
@@ -9,57 +10,53 @@ interface Item {
   tags: string[];
 }
 
-const itens: Item[] = [
-  {
-    periodo: "abr/2025 – jul/2026",
-    cargo: "Analista de TI",
-    local: "Distribuidora Donizete",
-    tipo: "trabalho",
-    pontos: [
-      "Sustentação do ERP TOTVS WinThor nos processos operacionais, logísticos e financeiros.",
-      "Aplicações internas em React e Node.js integrando dados do ERP às regras do negócio.",
-      "Consultas SQL em Oracle e MySQL para relatórios de gestão.",
-      "Automação de rotinas manuais com scripts.",
-    ],
-    tags: ["WinThor", "Oracle", "MySQL", "React", "Node.js"],
+interface Props { lang?: Lang }
+const { lang = "pt" } = Astro.props;
+
+const t = pick(lang, {
+  pt: {
+    eyebrow: "Trajetória",
+    title: "Experiência e formação",
+    itens: [
+      { periodo: "abr/2025 – jul/2026", cargo: "Analista de TI", local: "Distribuidora Donizete", tipo: "trabalho",
+        pontos: ["Sustentação do ERP TOTVS WinThor nos processos operacionais, logísticos e financeiros.", "Aplicações internas em React e Node.js integrando dados do ERP às regras do negócio.", "Consultas SQL em Oracle e MySQL para relatórios de gestão.", "Automação de rotinas manuais com scripts."],
+        tags: ["WinThor", "Oracle", "MySQL", "React", "Node.js"] },
+      { periodo: "jul/2021 – jan/2022", cargo: "Estagiário de TI e Redes", local: "Rações Golfinho", tipo: "trabalho",
+        pontos: ["Suporte técnico N1 a funcionários, com hardware e software.", "Manutenção da rede local: cabeamento estruturado, racks e conectividade.", "Configuração de estações de trabalho e gestão de acessos."],
+        tags: ["Help desk", "Redes", "Windows"] },
+      { periodo: "2020 – 2021", cargo: "Desenvolvimento Web Full-Stack", local: "Trybe · 1.500 horas", tipo: "estudo",
+        pontos: ["Formação intensiva em front-end, back-end, banco de dados e testes, com projetos avaliados por entrega."],
+        tags: ["JavaScript", "React", "Node.js", "SQL"] },
+      { periodo: "2019 – previsão dez/2027", cargo: "Engenharia de Computação", local: "Universidade Federal do Ceará (UFC)", tipo: "estudo",
+        pontos: ["Bacharelado em andamento."], tags: [] },
+    ] as Item[],
   },
-  {
-    periodo: "jul/2021 – jan/2022",
-    cargo: "Estagiário de TI e Redes",
-    local: "Rações Golfinho",
-    tipo: "trabalho",
-    pontos: [
-      "Suporte técnico N1 a funcionários, com hardware e software.",
-      "Manutenção da rede local: cabeamento estruturado, racks e conectividade.",
-      "Configuração de estações de trabalho e gestão de acessos.",
-    ],
-    tags: ["Help desk", "Redes", "Windows"],
+  en: {
+    eyebrow: "Background",
+    title: "Experience and education",
+    itens: [
+      { periodo: "Apr 2025 – Jul 2026", cargo: "IT Analyst", local: "Distribuidora Donizete (distribution company)", tipo: "trabalho",
+        pontos: ["Supported the TOTVS WinThor ERP across operations, logistics and finance.", "Built internal React and Node.js applications connecting ERP data to business rules.", "Wrote SQL queries in Oracle and MySQL for management reports.", "Automated repetitive manual tasks with scripts."],
+        tags: ["WinThor ERP", "Oracle", "MySQL", "React", "Node.js"] },
+      { periodo: "Jul 2021 – Jan 2022", cargo: "IT and Networking Intern", local: "Rações Golfinho", tipo: "trabalho",
+        pontos: ["Level 1 technical support for hardware and software.", "Maintained the local network: structured cabling, racks and connectivity.", "Set up workstations and managed user access."],
+        tags: ["Help desk", "Networking", "Windows"] },
+      { periodo: "2020 – 2021", cargo: "Full-Stack Web Development", local: "Trybe · 1,500 hours", tipo: "estudo",
+        pontos: ["Intensive program covering front end, back end, databases and testing, assessed through project delivery."],
+        tags: ["JavaScript", "React", "Node.js", "SQL"] },
+      { periodo: "2019 – expected Dec 2027", cargo: "B.S. in Computer Engineering", local: "Federal University of Ceará (UFC)", tipo: "estudo",
+        pontos: ["In progress."], tags: [] },
+    ] as Item[],
   },
-  {
-    periodo: "2020 – 2021",
-    cargo: "Desenvolvimento Web Full-Stack",
-    local: "Trybe · 1.500 horas",
-    tipo: "estudo",
-    pontos: [
-      "Formação intensiva em front-end, back-end, banco de dados e testes, com projetos avaliados por entrega.",
-    ],
-    tags: ["JavaScript", "React", "Node.js", "SQL"],
-  },
-  {
-    periodo: "2019 – previsão dez/2027",
-    cargo: "Engenharia de Computação",
-    local: "Universidade Federal do Ceará (UFC)",
-    tipo: "estudo",
-    pontos: ["Bacharelado em andamento."],
-    tags: [],
-  },
-];
+});
+
+const itens = t.itens;
 ---
 
 <section class="relative">
   <div class="text-center mb-14">
-    <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">Trajetória</h2>
-    <h3 class="text-3xl md:text-5xl font-bold text-white">Experiência e formação</h3>
+    <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">{t.eyebrow}</h2>
+    <h3 class="text-3xl md:text-5xl font-bold text-white">{t.title}</h3>
   </div>
 
   <ol class="relative max-w-3xl mx-auto border-l border-white/10 ml-3 sm:ml-auto">

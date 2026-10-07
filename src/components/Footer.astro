@@ -1,5 +1,14 @@
 ---
 // src/components/Footer.astro
+import { pick, type Lang } from '../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'pt' } = Astro.props;
+
+const t = pick(lang, {
+  pt: { contact: 'Contato', madeWith: 'Feito com', built: 'Construído com', styled: 'Estilizado com', deployed: 'Publicado na', madeIn: 'Feito em Sobral-CE.' },
+  en: { contact: 'Contact', madeWith: 'Built with', built: 'Framework', styled: 'Styling', deployed: 'Hosting', madeIn: 'Made in Sobral, Brazil.' },
+});
 ---
 
 <footer class="relative w-full pt-12 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -10,7 +19,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
       
       <div class="flex flex-col items-center lg:items-start space-y-6">
-        <h4 class="text-white font-bold text-lg">Contato</h4>
+        <h4 class="text-white font-bold text-lg">{t.contact}</h4>
         <div class="flex flex-wrap justify-center lg:justify-start gap-4">
           {
             [
@@ -49,24 +58,24 @@
       </div>
 
       <div class="flex flex-col items-center lg:items-start space-y-6">
-        <h4 class="text-white font-bold text-lg">Feito com</h4>
+        <h4 class="text-white font-bold text-lg">{t.madeWith}</h4>
         <div class="space-y-4 w-full max-w-xs">
            <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
-              <span class="text-neutral-400 text-sm">Construído com</span>
+              <span class="text-neutral-400 text-sm">{t.built}</span>
               <span class="flex items-center gap-2 text-white font-medium">
                  <img src="/svg/astro.svg" alt="Astro Logo" class="w-5 h-5" width="20" height="20" loading="lazy" decoding="async" />
                  Astro
               </span>
            </div>
            <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
-              <span class="text-neutral-400 text-sm">Estilizado com</span>
+              <span class="text-neutral-400 text-sm">{t.styled}</span>
               <span class="flex items-center gap-2 text-blue-300 font-medium">
                  <img src="/svg/tailwindcss.svg" alt="Tailwind CSS Logo" class="w-5 h-5" width="20" height="20" loading="lazy" decoding="async" />
                  Tailwind
               </span>
            </div>
            <div class="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg border border-white/5 hover:border-white/10 transition-colors">
-              <span class="text-neutral-400 text-sm">Publicado na</span>
+              <span class="text-neutral-400 text-sm">{t.deployed}</span>
               <span class="flex items-center gap-2 text-white font-medium">
                  <img src="/svg/vercel.svg" alt="Vercel Logo" class="w-5 h-5 invert" width="20" height="20" loading="lazy" decoding="async" />
                  Vercel
@@ -79,7 +88,7 @@
     <div class="mt-16 pt-8 border-t border-white/5 text-center">
       <p class="text-neutral-500 text-sm">
         &copy; {new Date().getFullYear()} <span class="text-white font-medium"><a href="https://github.com/devpedroeduardo">Pedro Eduardo</a></span>. 
-        Feito em Sobral-CE.
+        {t.madeIn}
       </p>
     </div>
   </div>

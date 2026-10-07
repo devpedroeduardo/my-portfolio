@@ -1,5 +1,30 @@
 ---
 // src/components/Contact.astro
+import { pick, type Lang } from '../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'pt' } = Astro.props;
+
+const t = pick(lang, {
+  pt: {
+    eyebrow: 'Vamos conversar', title: 'Entre em contato',
+    intro: 'Tem uma vaga, um projeto ou uma ideia para o seu negócio? Me mande uma mensagem. Estou disponível para oportunidades como desenvolvedor e para projetos freelance.',
+    location: 'Localização', place: 'Sobral, Ceará, Brasil', email: 'E-mail',
+    name: 'Nome', namePh: 'Seu nome', emailPh: 'voce@email.com',
+    message: 'Mensagem', messagePh: 'Conte sobre a vaga ou o projeto...',
+    send: 'Enviar mensagem', sent: 'Mensagem enviada!', thanks: 'Obrigado pelo contato. Respondo em breve.', again: 'Enviar outra mensagem',
+    sending: 'Enviando...', error: 'Não foi possível enviar a mensagem. Tente de novo.', network: 'Erro de conexão. Verifique sua internet e tente de novo.',
+  },
+  en: {
+    eyebrow: "Let's talk", title: 'Get in touch',
+    intro: 'Have a role, a project or an idea for your business? Send me a message. I am open to developer positions, including remote roles, and to freelance projects.',
+    location: 'Location', place: 'Sobral, Ceará, Brazil (UTC−3)', email: 'Email',
+    name: 'Name', namePh: 'Your name', emailPh: 'you@email.com',
+    message: 'Message', messagePh: 'Tell me about the role or the project...',
+    send: 'Send message', sent: 'Message sent!', thanks: 'Thanks for reaching out. I will get back to you soon.', again: 'Send another message',
+    sending: 'Sending...', error: 'The message could not be sent. Please try again.', network: 'Connection error. Check your internet and try again.',
+  },
+});
 ---
 
 <section id="contact" class="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -11,13 +36,11 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
       
       <div class="opacity-0 animate-fade-in-left">
-        <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">Vamos conversar</h2>
-        <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Entre em contato</h3>
+        <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">{t.eyebrow}</h2>
+        <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">{t.title}</h3>
         
         <p class="text-neutral-300 text-lg leading-relaxed mb-8">
-          Tem uma vaga, um projeto ou uma ideia para o seu negócio?
-          Me mande uma mensagem. Estou disponível para oportunidades
-          como desenvolvedor e para projetos freelance.
+          {t.intro}
         </p>
 
         <div class="space-y-6">
@@ -29,8 +52,8 @@
               </svg>
             </div>
             <div>
-              <span class="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">Localização</span>
-              <span class="font-medium text-white">Sobral, Ceará, Brasil</span>
+              <span class="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">{t.location}</span>
+              <span class="font-medium text-white">{t.place}</span>
             </div>
           </div>
 
@@ -41,7 +64,7 @@
               </svg>
             </div>
             <div>
-              <span class="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">E-mail</span>
+              <span class="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">{t.email}</span>
               <a 
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=pedroedu77@gmail.com" 
                 target="_blank"
@@ -60,6 +83,9 @@
 
         <div class="relative bg-gray-900/80 backdrop-blur-xl border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl">
           <form
+            data-sending={t.sending}
+            data-error={t.error}
+            data-network={t.network}
             id="contact-form"
             action="https://formspree.io/f/mwvekvpg" 
             method="POST"
@@ -67,23 +93,23 @@
           >
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label for="name" class="text-sm font-medium text-neutral-400">Nome</label>
+                <label for="name" class="text-sm font-medium text-neutral-400">{t.name}</label>
                 <input
                   type="text"
                   name="from_name"
                   id="name"
-                  placeholder="Seu nome"
+                  placeholder={t.namePh}
                   required
                   class="w-full px-4 py-3 bg-gray-800/50 border border-white/10 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all hover:border-white/20"
                 />
               </div>
               <div class="space-y-2">
-                <label for="email" class="text-sm font-medium text-neutral-400">E-mail</label>
+                <label for="email" class="text-sm font-medium text-neutral-400">{t.email}</label>
                 <input
                   type="email"
                   name="reply_to"
                   id="email"
-                  placeholder="voce@email.com"
+                  placeholder={t.emailPh}
                   required
                   class="w-full px-4 py-3 bg-gray-800/50 border border-white/10 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all hover:border-white/20"
                 />
@@ -91,12 +117,12 @@
             </div>
 
             <div class="space-y-2">
-              <label for="message" class="text-sm font-medium text-neutral-400">Mensagem</label>
+              <label for="message" class="text-sm font-medium text-neutral-400">{t.message}</label>
               <textarea
                 name="message"
                 id="message"
                 rows="4"
-                placeholder="Conte sobre a vaga ou o projeto..."
+                placeholder={t.messagePh}
                 required
                 class="w-full px-4 py-3 bg-gray-800/50 border border-white/10 rounded-lg text-white placeholder-neutral-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all resize-none hover:border-white/20"
               ></textarea>
@@ -107,7 +133,7 @@
               class="w-full relative overflow-hidden group bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3.5 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-600/20 focus:ring-2 focus:ring-blue-500/50 focus:outline-none"
             >
               <span class="relative z-10 flex items-center justify-center gap-2 transition-transform duration-300 group-hover:gap-3">
-                Enviar mensagem
+                {t.send}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -125,13 +151,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h4 class="text-2xl font-bold text-white mb-2">Mensagem enviada!</h4>
-            <p class="text-neutral-400 mb-6">Obrigado pelo contato. Respondo em breve.</p>
+            <h4 class="text-2xl font-bold text-white mb-2">{t.sent}</h4>
+            <p class="text-neutral-400 mb-6">{t.thanks}</p>
             <button 
               id="reset-form-btn"
               class="px-6 py-2 rounded-lg bg-gray-800 text-sm font-medium text-white border border-white/10 hover:bg-gray-700 transition-colors"
             >
-              Enviar outra mensagem
+              {t.again}
             </button>
           </div>
         </div>
@@ -154,7 +180,7 @@
       
       if(submitBtn) {
         const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<span class="animate-pulse">Enviando...</span>';
+        submitBtn.innerHTML = `<span class="animate-pulse">${form.dataset.sending}</span>`;
         (submitBtn as HTMLButtonElement).disabled = true;
         (submitBtn as HTMLButtonElement).classList.add('opacity-70', 'cursor-not-allowed');
 
@@ -173,11 +199,11 @@
           } else {
             const data = await response.json();
             console.error("Error response:", data);
-            alert("Não foi possível enviar a mensagem. Tente de novo.");
+            alert(form.dataset.error);
           }
         } catch (error) {
           console.error("Error:", error);
-          alert("Erro de conexão. Verifique sua internet e tente de novo.");
+          alert(form.dataset.network);
         } finally {
             submitBtn.innerHTML = originalText;
             (submitBtn as HTMLButtonElement).disabled = false;

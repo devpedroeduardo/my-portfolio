@@ -2,20 +2,54 @@
 import { Image } from "astro:assets";
 import profileImage from "../assets/ME.png";
 
+import { pick, type Lang } from "../i18n";
+
+interface Props { lang?: Lang }
+const { lang = "pt" } = Astro.props;
+
+const t = pick(lang, {
+  pt: {
+    title: "Sobre mim",
+    subtitle: "Minha trajetória",
+    description: [
+      "Sou Pedro Eduardo, desenvolvedor full-stack de Sobral-CE. Comecei na TI pelo suporte e pela infraestrutura de rede, e foi resolvendo os problemas de quem usa os sistemas no dia a dia que passei a construir esses sistemas.",
+      "Como Analista de TI em uma distribuidora, sustentei o ERP TOTVS WinThor, escrevi consultas em Oracle e MySQL para relatórios de gestão e desenvolvi aplicações internas em React e Node.js. Hoje aplico essa experiência em projetos com Next.js, TypeScript e Supabase, com atenção a segurança e testes.",
+      "Curso Engenharia de Computação na UFC e tenho formação full-stack de 1.500 horas pela Trybe. Fora do código, gosto de jogar videogame.",
+    ],
+    stats: [
+      { label: "Anos de experiência em TI", value: "2+" },
+      { label: "Horas de formação full-stack", value: "1.500" },
+      { label: "Engenharia de Computação", value: "UFC" },
+    ],
+    photoAlt: "Foto de Pedro Eduardo",
+    photoPlaceholder: "Foto de perfil",
+    cv: "Baixar currículo",
+  },
+  en: {
+    title: "About me",
+    subtitle: "My path",
+    description: [
+      "I'm Pedro Eduardo, a full-stack developer based in Sobral, Brazil. I started in IT doing support and network infrastructure, and solving problems for the people who use systems every day is what led me to build those systems.",
+      "As an IT Analyst at a distribution company, I supported the TOTVS WinThor ERP, wrote Oracle and MySQL queries for management reports and built internal applications with React and Node.js. Today I bring that experience to projects with Next.js, TypeScript and Supabase, with a focus on security and testing.",
+      "I'm studying Computer Engineering at the Federal University of Ceará (UFC) and completed a 1,500-hour full-stack program at Trybe. Outside of code, I enjoy video games.",
+    ],
+    stats: [
+      { label: "Years of IT experience", value: "2+" },
+      { label: "Hours of full-stack training", value: "1,500" },
+      { label: "Computer Engineering", value: "UFC" },
+    ],
+    photoAlt: "Photo of Pedro Eduardo",
+    photoPlaceholder: "Profile photo",
+    cv: "Download résumé (Portuguese)",
+  },
+});
+
 const aboutData = {
-  title: "Sobre mim",
-  subtitle: "Minha trajetória",
-  image: profileImage, 
-  description: [
-    "Sou Pedro Eduardo, desenvolvedor full-stack de Sobral-CE. Comecei na TI pelo suporte e pela infraestrutura de rede, e foi resolvendo os problemas de quem usa os sistemas no dia a dia que passei a construir esses sistemas.",
-    "Como Analista de TI em uma distribuidora, sustentei o ERP TOTVS WinThor, escrevi consultas em Oracle e MySQL para relatórios de gestão e desenvolvi aplicações internas em React e Node.js. Hoje aplico essa experiência em projetos com Next.js, TypeScript e Supabase, com atenção a segurança e testes.",
-    "Curso Engenharia de Computação na UFC e tenho formação full-stack de 1.500 horas pela Trybe. Fora do código, gosto de jogar videogame."
-  ],
-  stats: [
-    { label: "Anos de experiência em TI", value: "2+" },
-    { label: "Horas de formação full-stack", value: "1.500" },
-    { label: "Engenharia de Computação", value: "UFC" },
-  ],
+  title: t.title,
+  subtitle: t.subtitle,
+  image: profileImage,
+  description: t.description,
+  stats: t.stats,
   socials: [
     {
       label: "Email",
@@ -52,7 +86,7 @@ const aboutData = {
           {aboutData.image ? (
             <Image 
               src={aboutData.image} 
-              alt="Foto de Pedro Eduardo"
+              alt={t.photoAlt}
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : (
@@ -60,7 +94,7 @@ const aboutData = {
               <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              <span class="text-sm">Foto de perfil</span>
+              <span class="text-sm">{t.photoPlaceholder}</span>
             </div>
           )}
           
@@ -114,7 +148,7 @@ const aboutData = {
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all duration-300 hover:scale-105 group"
           >
-            <span>Baixar currículo</span>
+            <span>{t.cv}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>

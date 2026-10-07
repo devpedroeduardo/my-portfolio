@@ -1,0 +1,63 @@
+---
+// src/components/HomePage.astro
+// Página inicial completa. As rotas / (português) e /en/ (inglês) usam este componente.
+import MainLayout from '@/layouts/MainLayout.astro';
+import Hero from '@/components/Hero.astro';
+import Projects from '@/components/Projects.astro';
+import Services from '@/components/Services.astro';
+import Experience from '@/components/Experience.astro';
+import About from '@/components/About.astro';
+import Contact from '@/components/Contact.astro';
+import Footer from '@/components/Footer.astro';
+import { pick, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const meta = pick(lang, {
+  pt: {
+    title: 'Pedro Eduardo · Desenvolvedor Full-Stack',
+    description: 'Portfólio de Pedro Eduardo, desenvolvedor full-stack em Sobral-CE: projetos com React, Next.js, Node.js e TypeScript.',
+  },
+  en: {
+    title: 'Pedro Eduardo · Full-Stack Developer',
+    description: 'Portfolio of Pedro Eduardo, a full-stack developer from Brazil: projects with React, Next.js, Node.js and TypeScript.',
+  },
+});
+---
+
+<MainLayout title={meta.title} description={meta.description} lang={lang}>
+  <Hero lang={lang} />
+
+  <div id="projects" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <Projects lang={lang} />
+    </div>
+  </div>
+
+  <div id="services" class="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
+    <div class="max-w-6xl mx-auto">
+      <Services lang={lang} />
+    </div>
+  </div>
+
+  <div id="experience" class="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <Experience lang={lang} />
+    </div>
+  </div>
+
+  <div id="about" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
+    <div class="max-w-6xl mx-auto">
+      <About lang={lang} />
+    </div>
+  </div>
+
+  <div id="contact" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <Contact lang={lang} />
+    </div>
+  </div>
+
+  <Footer lang={lang} />
+</MainLayout>

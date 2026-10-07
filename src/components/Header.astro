@@ -1,5 +1,20 @@
 ---
 // src/components/Header.astro
+import { pick, homePath, type Lang } from '../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'pt' } = Astro.props;
+
+const t = pick(lang, {
+  pt: {
+    links: [['#projects', 'Projetos'], ['#services', 'Serviços'], ['#experience', 'Experiência'], ['#about', 'Sobre'], ['#contact', 'Contato']],
+    switchHref: homePath.en, switchLang: 'en', switchLabel: 'EN', switchAria: 'Read in English',
+  },
+  en: {
+    links: [['#projects', 'Projects'], ['#services', 'Services'], ['#experience', 'Experience'], ['#about', 'About'], ['#contact', 'Contact']],
+    switchHref: homePath.pt, switchLang: 'pt-BR', switchLabel: 'PT', switchAria: 'Ler em português',
+  },
+});
 ---
 <!-- 
   Container principal: 
@@ -20,16 +35,19 @@
               transition-all duration-300">
 
     <!-- Links de Navegação -->
-    <div class="flex w-full justify-center gap-x-4 sm:gap-x-8 text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
-      <a href="#projects" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300">Projetos</a>
+    <div class="flex w-full justify-center items-center gap-x-3 sm:gap-x-8 text-xs sm:text-sm font-medium text-neutral-400 whitespace-nowrap">
+      {t.links.map(([href, label]) => (
+        <a href={href} class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300">{label}</a>
+      ))}
 
-      <a href="#services" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300">Serviços</a>
-
-      <a href="#experience" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300">Experiência</a>
-
-      <a href="#about" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300">Sobre</a>
-
-      <a href="#contact" class="hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300">Contato</a>
+      <a
+        href={t.switchHref}
+        hreflang={t.switchLang}
+        lang={t.switchLang}
+        aria-label={t.switchAria}
+        title={t.switchAria}
+        class="ml-1 sm:ml-2 px-2.5 py-1 rounded-full border border-white/15 text-white/90 hover:text-white hover:border-blue-400/60 hover:bg-blue-500/10 transition-colors"
+      >{t.switchLabel}</a>
     </div>
   </nav>
 </header>
