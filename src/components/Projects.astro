@@ -21,6 +21,13 @@ interface Project {
   technologies: string[];
 }
 
+const statusLabel: Record<Project["status"], string> = {
+  Deployed: "No ar",
+  "In Progress": "Em andamento",
+  Contributor: "Colaborador",
+  Archived: "Concluído",
+};
+
 // ARRAY DE PROJETOS
 const projects: Project[] = [
   {
@@ -31,8 +38,8 @@ const projects: Project[] = [
       bemobile1, // CORREÇÃO: Passando o objeto direto em vez do '.src'
       bemobile2  // CORREÇÃO: Passando o objeto direto
     ],
-    description: "This project is a React application that uses styled-components to create a responsive table...",
-    longDescription: "This project is a React application that uses styled-components to create a responsive table. The table includes columns for Image (user thumbnail), Name, Job Title, Admission Data, and Phone Number, and has a search function that filters the information by job title, name, and phone number. Furthermore, each row in the table has a pure accordion pattern, created without additional frameworks.",
+    description: "Desafio técnico de front-end: tabela de funcionários responsiva, com busca em tempo real.",
+    longDescription: "Aplicação em React com Styled-Components que exibe uma tabela de funcionários com foto, nome, cargo, data de admissão e telefone, consumindo uma API simulada com json-server. A busca filtra por nome, cargo e telefone em tempo real, e em telas pequenas a tabela vira uma lista em acordeão feita sem bibliotecas de componentes.",
     link: "https://github.com/devpedroeduardo/bemobile-project",
     preview: "https://github.com/devpedroeduardo/bemobile-project", 
     status: "Archived",
@@ -46,12 +53,12 @@ const projects: Project[] = [
       finpocket1, // CORREÇÃO: Passando o objeto direto em vez do '.src'
       finpocket2  // CORREÇÃO: Passando o objeto direto
     ],
-    description: "An application designed to help users manage their finances more efficiently.",
-    longDescription: "MyFinPocket is a smart and modern financial assistant focused on giving users complete control over their finances. Built with a Software as a Service (SaaS) architecture, it goes far beyond a simple expense tracker: it features artificial intelligence for analysis, automated reconciliation of PDF invoices, and an advanced batch payment system.",
+    description: "Aplicação de finanças pessoais (PWA) com Next.js, Supabase e IA.",
+    longDescription: "Aplicação de finanças pessoais para registrar receitas e despesas, com dashboard do mês, relatórios exportáveis em PDF, metas e limites por categoria. Usa IA (Google Gemini) para ler fotos de comprovantes e analisar os gastos do mês. A segurança fica no banco, com Row Level Security no Supabase, e os testes E2E com Playwright rodam no GitHub Actions a cada push.",
     link: "https://github.com/devpedroeduardo/my-finpocket",
     preview: "https://my-finpocket.vercel.app/", 
     status: "Deployed",
-    technologies: ["React.js", "Next.js", "TailwindCSS", "TypeScript"],
+    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Playwright"],
   }
 ];
 ---
@@ -61,10 +68,10 @@ const projects: Project[] = [
   <div class="relative z-10 max-w-6xl mx-auto">
     
     <div class="text-center mb-16 opacity-0 animate-fade-in-up" style="animation-fill-mode: forwards;">
-      <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">My Work</h2>
-      <h3 class="text-3xl md:text-5xl font-bold text-white">Featured Projects</h3>
+      <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">Meu trabalho</h2>
+      <h3 class="text-3xl md:text-5xl font-bold text-white">Projetos em destaque</h3>
       <p class="mt-4 text-neutral-400 max-w-2xl mx-auto text-lg">
-        Explore some of the applications I've built, showcasing my expertise in frontend and backend development.
+        Algumas das aplicações que construí, do front-end ao back-end.
       </p>
     </div>
 
@@ -102,7 +109,7 @@ const projects: Project[] = [
                   project.status === 'In Progress' ? 'bg-yellow-500/20 border-yellow-500/30 text-yellow-300' :
                   'bg-blue-500/20 border-blue-500/30 text-blue-300'
                 }`}>
-                  {project.status}
+                  {statusLabel[project.status]}
                 </span>
               </div>
             </button>
@@ -138,23 +145,23 @@ const projects: Project[] = [
                   href={project.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  aria-label="View Source Code"
+                  aria-label="Ver código-fonte"
                   class="flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-white transition-colors group/link"
                 >
                   <div class="p-2 bg-gray-800 rounded-lg border border-gray-700 group-hover/link:bg-gray-700 group-hover/link:border-gray-600 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                   </div>
-                  <span>Code</span>
+                  <span>Código</span>
                 </a>
                 
                 <a 
                   href={project.preview} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  aria-label="View Live Preview"
+                  aria-label="Ver projeto online"
                   class="flex items-center gap-2 text-sm font-medium text-neutral-300 hover:text-blue-400 transition-colors ml-auto group/link"
                 >
-                  <span>Live Preview</span>
+                  <span>Ver online</span>
                   <div class="p-2 bg-gray-800 rounded-lg border border-gray-700 group-hover/link:bg-blue-600 group-hover/link:border-blue-500 group-hover/link:text-white transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   </div>
@@ -170,9 +177,9 @@ const projects: Project[] = [
         <div class="relative z-10 mb-6 p-5 bg-gray-800 rounded-full text-blue-400 shadow-xl shadow-blue-900/10 ring-1 ring-white/10">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
         </div>
-        <h3 class="relative z-10 text-2xl font-bold text-white mb-2">Projects Coming Soon</h3>
+        <h3 class="relative z-10 text-2xl font-bold text-white mb-2">Novos projetos em breve</h3>
         <p class="relative z-10 text-neutral-400 max-w-md mx-auto text-base">
-          I'm putting the finishing touches on some awesome projects. Check back soon or visit my GitHub to see what I'm cooking!
+          Estou finalizando novos projetos. Enquanto isso, veja o que estou construindo no meu GitHub.
         </p>
       </div>
     )}
@@ -185,7 +192,7 @@ const projects: Project[] = [
   <div class="flex flex-col h-full max-h-[85vh]">
     
     <div class="flex justify-between items-center p-6 border-b border-white/10 bg-gray-800/50 sticky top-0 z-20">
-      <h3 id="modal-title" class="text-2xl font-bold text-white">Project Title</h3>
+      <h3 id="modal-title" class="text-2xl font-bold text-white">Projeto</h3>
       <button id="close-modal" class="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover:bg-gray-700 focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
@@ -208,7 +215,7 @@ const projects: Project[] = [
                 </div>
               ))
             ) : (
-              <div class="text-neutral-500 italic p-4 bg-gray-800/30 rounded-xl border border-white/5 text-center">No screenshots available.</div>
+              <div class="text-neutral-500 italic p-4 bg-gray-800/30 rounded-xl border border-white/5 text-center">Sem imagens disponíveis.</div>
             )}
           </div>
         ))}
@@ -218,7 +225,7 @@ const projects: Project[] = [
       <div id="desc-container" class="prose prose-invert max-w-none opacity-0 translate-y-12 transition-all duration-700 ease-out pb-8">
         <h4 class="text-2xl font-semibold text-blue-400 mb-4 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          About this project
+          Sobre o projeto
         </h4>
         <p id="modal-desc" class="text-neutral-300 leading-relaxed text-lg bg-gray-800/30 p-6 rounded-xl border border-white/5"></p>
       </div>
@@ -233,7 +240,7 @@ const projects: Project[] = [
         class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-lg shadow-blue-500/20"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg>
-        View on GitHub
+        Ver no GitHub
       </a>
     </div>
   </div>

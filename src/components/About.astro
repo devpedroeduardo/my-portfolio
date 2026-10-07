@@ -3,18 +3,18 @@ import { Image } from "astro:assets";
 import profileImage from "../assets/ME.png";
 
 const aboutData = {
-  title: "About Me",
-  subtitle: "My Journey",
+  title: "Sobre mim",
+  subtitle: "Minha trajetória",
   image: profileImage, 
   description: [
-    "Hello! I'm Pedro Eduardo, a passionate Software Developer based in Brazil. My journey into the world of technology began with a curiosity about how things work on the web, which quickly turned into a career dedicated to building functional and beautiful digital experiences.",
-    "With a strong foundation in Frontend Development, I love turning complex problems into simple, elegant solutions. I am constantly learning new technologies and best practices to ensure that every project I work on is scalable, performant, and accessible.",
-    "When I'm not coding, you can find me playing games, reading sci-fi books, or exploring new coffee shops."
+    "Sou Pedro Eduardo, desenvolvedor full-stack de Sobral-CE. Comecei na TI pelo suporte e pela infraestrutura de rede, e foi resolvendo os problemas de quem usa os sistemas no dia a dia que passei a construir esses sistemas.",
+    "Como Analista de TI em uma distribuidora, sustentei o ERP TOTVS WinThor, escrevi consultas em Oracle e MySQL para relatórios de gestão e desenvolvi aplicações internas em React e Node.js. Hoje aplico essa experiência em projetos com Next.js, TypeScript e Supabase, com atenção a segurança e testes.",
+    "Curso Engenharia de Computação na UFC e tenho formação full-stack de 1.500 horas pela Trybe. Fora do código, gosto de jogar videogame."
   ],
   stats: [
-    { label: "Years of Experience", value: "5+" },
-    { label: "Projects Completed", value: "10+" },
-    { label: "Technologies Mastered", value: "10+" },
+    { label: "Anos de experiência em TI", value: "2+" },
+    { label: "Horas de formação full-stack", value: "1.500" },
+    { label: "Engenharia de Computação", value: "UFC" },
   ],
   socials: [
     {
@@ -52,7 +52,7 @@ const aboutData = {
           {aboutData.image ? (
             <Image 
               src={aboutData.image} 
-              alt="Pedro Eduardo Profile"
+              alt="Foto de Pedro Eduardo"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : (
@@ -60,7 +60,7 @@ const aboutData = {
               <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              <span class="text-sm">Profile Image Placeholder</span>
+              <span class="text-sm">Foto de perfil</span>
             </div>
           )}
           
@@ -108,13 +108,13 @@ const aboutData = {
 
         <div class="mt-8">
           <a 
-            href="/docs/Curriculo_Pedro_Original.pdf" 
-            download="Curriculo_Pedro_Original.pdf"
+            href="/docs/Curriculo_Pedro_Eduardo.pdf" 
+            download="Curriculo_Pedro_Eduardo.pdf"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all duration-300 hover:scale-105 group"
           >
-            <span>Download CV</span>
+            <span>Baixar currículo</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>

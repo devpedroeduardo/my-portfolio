@@ -15,3 +15,6 @@ yarn-error.log*
 .env.local
 .env.d.ts
 .env.*.local
+
+# build da Vercel
+.vercel/
