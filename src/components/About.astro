@@ -24,6 +24,7 @@ const t = pick(lang, {
     photoAlt: "Foto de Pedro Eduardo",
     photoPlaceholder: "Foto de perfil",
     cv: "Baixar currículo",
+    cvHref: "/docs/Curriculo_Pedro_Eduardo.pdf",
   },
   en: {
     title: "About me",
@@ -40,7 +41,8 @@ const t = pick(lang, {
     ],
     photoAlt: "Photo of Pedro Eduardo",
     photoPlaceholder: "Profile photo",
-    cv: "Download résumé (Portuguese)",
+    cv: "Download résumé",
+    cvHref: "/docs/Resume_Pedro_Eduardo.pdf",
   },
 });
 
@@ -142,8 +144,8 @@ const aboutData = {
 
         <div class="mt-8">
           <a 
-            href="/docs/Curriculo_Pedro_Eduardo.pdf" 
-            download="Curriculo_Pedro_Eduardo.pdf"
+            href={t.cvHref} 
+            download={t.cvHref.split("/").pop()}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-all duration-300 hover:scale-105 group"
