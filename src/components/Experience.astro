@@ -1,0 +1,104 @@
+---
+// src/components/Experience.astro
+interface Item {
+  periodo: string;
+  cargo: string;
+  local: string;
+  tipo: "trabalho" | "estudo";
+  pontos: string[];
+  tags: string[];
+}
+
+const itens: Item[] = [
+  {
+    periodo: "abr/2025 – jul/2026",
+    cargo: "Analista de TI",
+    local: "Distribuidora Donizete",
+    tipo: "trabalho",
+    pontos: [
+      "Sustentação do ERP TOTVS WinThor nos processos operacionais, logísticos e financeiros.",
+      "Aplicações internas em React e Node.js integrando dados do ERP às regras do negócio.",
+      "Consultas SQL em Oracle e MySQL para relatórios de gestão.",
+      "Automação de rotinas manuais com scripts.",
+    ],
+    tags: ["WinThor", "Oracle", "MySQL", "React", "Node.js"],
+  },
+  {
+    periodo: "jul/2021 – jan/2022",
+    cargo: "Estagiário de TI e Redes",
+    local: "Rações Golfinho",
+    tipo: "trabalho",
+    pontos: [
+      "Suporte técnico N1 a funcionários, com hardware e software.",
+      "Manutenção da rede local: cabeamento estruturado, racks e conectividade.",
+      "Configuração de estações de trabalho e gestão de acessos.",
+    ],
+    tags: ["Help desk", "Redes", "Windows"],
+  },
+  {
+    periodo: "2020 – 2021",
+    cargo: "Desenvolvimento Web Full-Stack",
+    local: "Trybe · 1.500 horas",
+    tipo: "estudo",
+    pontos: [
+      "Formação intensiva em front-end, back-end, banco de dados e testes, com projetos avaliados por entrega.",
+    ],
+    tags: ["JavaScript", "React", "Node.js", "SQL"],
+  },
+  {
+    periodo: "2019 – previsão dez/2027",
+    cargo: "Engenharia de Computação",
+    local: "Universidade Federal do Ceará (UFC)",
+    tipo: "estudo",
+    pontos: ["Bacharelado em andamento."],
+    tags: [],
+  },
+];
+---
+
+<section class="relative">
+  <div class="text-center mb-14">
+    <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">Trajetória</h2>
+    <h3 class="text-3xl md:text-5xl font-bold text-white">Experiência e formação</h3>
+  </div>
+
+  <ol class="relative max-w-3xl mx-auto border-l border-white/10 ml-3 sm:ml-auto">
+    {itens.map((item) => (
+      <li class="relative pl-8 sm:pl-10 pb-12 last:pb-0">
+        <span
+          class={`absolute -left-[9px] top-1.5 h-4 w-4 rounded-full ring-4 ring-gray-900 ${
+            item.tipo === "trabalho" ? "bg-blue-500" : "bg-purple-500"
+          }`}
+          aria-hidden="true"
+        ></span>
+
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+          <h4 class="text-xl font-semibold text-white">
+            {item.cargo}
+            <span class="block sm:inline text-base font-normal text-neutral-400 sm:before:content-['·'] sm:before:mx-2">{item.local}</span>
+          </h4>
+          <span class="text-sm text-neutral-500 whitespace-nowrap tabular-nums">{item.periodo}</span>
+        </div>
+
+        <ul class="space-y-1.5 text-neutral-300 leading-relaxed">
+          {item.pontos.map((ponto) => (
+            <li class="flex gap-2">
+              <span class="text-blue-400 mt-1.5 h-1.5 w-1.5 rounded-full bg-current flex-none" aria-hidden="true"></span>
+              <span>{ponto}</span>
+            </li>
+          ))}
+        </ul>
+
+        {item.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {item.tags.map((tag) => (
+              <span class="px-2.5 py-1 text-xs font-medium text-blue-200 bg-blue-500/10 rounded-md border border-blue-500/10">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </li>
+    ))}
+  </ol>
+</section>

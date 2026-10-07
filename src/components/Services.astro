@@ -1,0 +1,103 @@
+---
+// src/components/Services.astro
+const whatsapp = "5585997506944";
+const linkWhats = (texto: string) =>
+  `https://wa.me/${whatsapp}?text=${encodeURIComponent(texto)}`;
+
+const servicos = [
+  {
+    nome: "Presença Digital",
+    para: "Para negócios que ainda não aparecem na internet",
+    destaque: true,
+    itens: [
+      "Site de uma página, rápido e adaptado ao celular",
+      "Botão direto para o seu WhatsApp",
+      "Configuração do Google Meu Negócio para aparecer no Maps",
+      "Domínio e publicação do site",
+    ],
+    mensagem: "Olá, Pedro! Vi seu portfólio e quero um orçamento do pacote Presença Digital.",
+  },
+  {
+    nome: "Catálogo Online",
+    para: "Para quem vende pelo Instagram ou WhatsApp",
+    destaque: false,
+    itens: [
+      "Catálogo de produtos com fotos, preços e categorias",
+      "Pedido enviado pronto para o seu WhatsApp",
+      "Você mesmo atualiza os produtos",
+      "Layout com a identidade da sua marca",
+    ],
+    mensagem: "Olá, Pedro! Vi seu portfólio e quero um orçamento de Catálogo Online.",
+  },
+  {
+    nome: "Manutenção Mensal",
+    para: "Para manter o site no ar e atualizado",
+    destaque: false,
+    itens: [
+      "Hospedagem e acompanhamento do site",
+      "Pequenas alterações de texto, fotos e preços",
+      "Backups e atualizações de segurança",
+      "Suporte pelo WhatsApp",
+    ],
+    mensagem: "Olá, Pedro! Vi seu portfólio e quero saber sobre a Manutenção Mensal.",
+  },
+];
+---
+
+<section class="relative">
+  <div class="text-center mb-14 max-w-2xl mx-auto">
+    <h2 class="text-blue-400 font-medium tracking-wide text-sm uppercase mb-2">Para o seu negócio</h2>
+    <h3 class="text-3xl md:text-5xl font-bold text-white mb-4">Serviços</h3>
+    <p class="text-neutral-400 text-lg leading-relaxed">
+      Sites e sistemas sob medida para pequenos negócios. Me conte o que você precisa e eu
+      envio um orçamento sem compromisso.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {servicos.map((s) => (
+      <article
+        class={`relative flex flex-col p-6 sm:p-8 rounded-2xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 ${
+          s.destaque
+            ? "bg-gradient-to-b from-blue-500/10 to-purple-500/10 border-blue-500/40 shadow-xl shadow-blue-900/20"
+            : "bg-gray-800/40 border-white/10 hover:border-white/20"
+        }`}
+      >
+        {s.destaque && (
+          <span class="absolute -top-3 left-6 px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded-full">
+            Ideal para começar
+          </span>
+        )}
+        <h4 class="text-2xl font-bold text-white mb-1">{s.nome}</h4>
+        <p class="text-sm text-neutral-400 mb-6">{s.para}</p>
+
+        <ul class="space-y-3 mb-8 text-neutral-300">
+          {s.itens.map((item) => (
+            <li class="flex gap-3">
+              <svg class="h-5 w-5 flex-none text-blue-400 mt-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={linkWhats(s.mensagem)}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`mt-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-colors ${
+            s.destaque
+              ? "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-white/5 hover:bg-white/10 text-white border border-white/10"
+          }`}
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.45 9.45 0 01-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.43 9.43 0 01-1.45-5.03c0-5.22 4.25-9.47 9.48-9.47a9.4 9.4 0 016.7 2.78 9.4 9.4 0 012.77 6.7c0 5.22-4.25 9.46-9.47 9.46zm8.06-17.53A11.33 11.33 0 0012.04.63C5.76.63.65 5.74.65 12.02c0 2 .53 3.96 1.52 5.69L.55 23.63l6.06-1.59a11.36 11.36 0 005.43 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.19-5.9-3.34-8.06z" />
+          </svg>
+          Pedir orçamento
+        </a>
+      </article>
+    ))}
+  </div>
+</section>

@@ -16,7 +16,9 @@
 ## 📄 Seções
 
 - **Início:** apresentação com texto animado, habilidades e uma faixa animada com as tecnologias que uso.
-- **Projetos:** cards com prints de cada projeto e um modal com detalhes, tecnologias e links.
+- **Projetos:** cards com prints e um modal com o estudo de caso de cada projeto: problema, solução, decisões técnicas e resultado.
+- **Serviços:** pacotes para pequenos negócios, com botão que abre o WhatsApp já com a mensagem pronta.
+- **Experiência:** linha do tempo com experiência profissional e formação.
 - **Sobre:** trajetória, contatos e download do currículo.
 - **Contato:** formas de falar comigo.
 
@@ -26,6 +28,7 @@
 - **Framer Motion** para as animações dos componentes React.
 - **Imagens otimizadas** com o componente `Image` do `astro:assets`.
 - **Verificação de tipos no build:** `npm run build` roda `astro check` antes de gerar o site, então erro de TypeScript não chega à produção.
+- **Prévia ao compartilhar:** tags Open Graph com imagem própria, usando o domínio de produção que a Vercel informa no build.
 - **Deploy na Vercel** com o adaptador `@astrojs/vercel`.
 
 ## 📁 Estrutura
@@ -34,7 +37,7 @@
 src/
 ├── pages/index.astro     # página única que monta as seções
 ├── layouts/              # layout base (metadados, fontes, tema)
-├── components/           # seções em Astro: Hero, Projects, About, Contact
+├── components/           # seções: Hero, Projects, Services, Experience, About, Contact
 ├── react/                # componentes interativos: AnimatedText, LogoLoop, Abilities
 ├── assets/               # prints dos projetos e foto
 └── styles/global.css

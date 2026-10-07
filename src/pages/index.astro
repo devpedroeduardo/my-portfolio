@@ -6,6 +6,8 @@ import Projects from '@/components/Projects.astro';
 import About from '@/components/About.astro';
 import Contact from '@/components/Contact.astro';
 import Footer from '@/components/Footer.astro';
+import Services from '@/components/Services.astro';
+import Experience from '@/components/Experience.astro';
 ---
 
 <MainLayout 
@@ -17,6 +19,18 @@ import Footer from '@/components/Footer.astro';
   <div id="projects" class="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
     <div class="max-w-6xl mx-auto">
       <Projects />
+    </div>
+  </div>
+
+  <div id="services" class="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
+    <div class="max-w-6xl mx-auto">
+      <Services />
+    </div>
+  </div>
+
+  <div id="experience" class="py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <Experience />
     </div>
   </div>
 

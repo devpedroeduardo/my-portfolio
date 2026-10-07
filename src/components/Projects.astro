@@ -19,6 +19,12 @@ interface Project {
   preview: string;
   status: "Deployed" | "In Progress" | "Contributor" | "Archived";
   technologies: string[];
+  caseStudy?: {
+    problema: string;
+    solucao: string;
+    decisoes: string[];
+    resultado: string;
+  };
 }
 
 const statusLabel: Record<Project["status"], string> = {
@@ -44,6 +50,17 @@ const projects: Project[] = [
     preview: "https://github.com/devpedroeduardo/bemobile-project", 
     status: "Archived",
     technologies: ["React", "Node.js", "styled-components"],
+    caseStudy: {
+      problema: "Desafio técnico de uma vaga de front-end: exibir os funcionários vindos de uma API, com busca, e funcionar bem no celular.",
+      solucao: "Uma tabela em React com busca em tempo real por nome, cargo e telefone. Em telas de até 800px, a tabela vira uma lista em acordeão, que mostra os detalhes de cada pessoa ao tocar.",
+      decisoes: [
+        "Acordeão feito do zero, só com React e CSS, sem bibliotecas de componentes.",
+        "Componentes pequenos (Header, Input, Table, Accordion) e o estado concentrado em um único container.",
+        "Formatação de data e telefone isolada em funções puras, fáceis de testar.",
+        "API simulada com json-server para desenvolver sem depender de um back-end.",
+      ],
+      resultado: "Desafio concluído com layout responsivo e código organizado por componentes.",
+    },
   },
   {
     id: "myfinpocket",
@@ -59,6 +76,17 @@ const projects: Project[] = [
     preview: "https://my-finpocket.vercel.app/", 
     status: "Deployed",
     technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Playwright"],
+    caseStudy: {
+      problema: "Controlar finanças em planilha dá trabalho e é fácil de abandonar. A ideia era um app que coubesse no celular, registrasse um gasto em segundos e mostrasse para onde o dinheiro está indo.",
+      solucao: "Uma aplicação instalável (PWA) com dashboard do mês, contas, categorias, metas, limites por categoria e relatórios exportáveis em PDF. A IA do Google Gemini lê a foto de um comprovante e preenche o lançamento, e também gera uma análise dos gastos do mês.",
+      decisoes: [
+        "Segurança no banco: Row Level Security no Supabase garante que cada usuário só acessa os próprios dados, mesmo que o front-end falhe.",
+        "Rotas privadas protegidas por middleware, com a sessão em cookies via @supabase/ssr.",
+        "Formulários validados com Zod e React Hook Form.",
+        "Uma revisão de segurança encontrou uma rota de pagamento em lote que aceitava IDs de qualquer usuário. A rota passou a exigir login, conferir a posse de cada conta e calcular o total no servidor.",
+      ],
+      resultado: "Aplicação publicada na Vercel, com testes unitários (Jest) e testes de ponta a ponta (Playwright) rodando no GitHub Actions a cada push.",
+    },
   }
 ];
 ---
@@ -225,9 +253,42 @@ const projects: Project[] = [
       <div id="desc-container" class="prose prose-invert max-w-none opacity-0 translate-y-12 transition-all duration-700 ease-out pb-8">
         <h4 class="text-2xl font-semibold text-blue-400 mb-4 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          Sobre o projeto
+          Estudo de caso
         </h4>
-        <p id="modal-desc" class="text-neutral-300 leading-relaxed text-lg bg-gray-800/30 p-6 rounded-xl border border-white/5"></p>
+        {projects.map((project) => (
+          <div id={`case-${project.id}`} class="project-case hidden flex-col gap-4">
+            {project.caseStudy ? (
+              <>
+                <div class="grid gap-4 md:grid-cols-2">
+                  <div class="bg-gray-800/30 p-5 rounded-xl border border-white/5">
+                    <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-2">O problema</h5>
+                    <p class="text-neutral-300 leading-relaxed">{project.caseStudy.problema}</p>
+                  </div>
+                  <div class="bg-gray-800/30 p-5 rounded-xl border border-white/5">
+                    <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-2">A solução</h5>
+                    <p class="text-neutral-300 leading-relaxed">{project.caseStudy.solucao}</p>
+                  </div>
+                </div>
+                <div class="bg-gray-800/30 p-5 rounded-xl border border-white/5">
+                  <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-3">Decisões técnicas</h5>
+                  <ul class="space-y-2 text-neutral-300 leading-relaxed list-none p-0 m-0">
+                    {project.caseStudy.decisoes.map((d) => (
+                      <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-blue-400" aria-hidden="true"></span><span>{d}</span></li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-5 rounded-xl border border-blue-500/20">
+                  <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-2">Resultado</h5>
+                  <p class="text-neutral-200 leading-relaxed">{project.caseStudy.resultado}</p>
+                </div>
+              </>
+            ) : (
+              <p class="text-neutral-300 leading-relaxed text-lg bg-gray-800/30 p-6 rounded-xl border border-white/5">
+                {project.longDescription || project.description}
+              </p>
+            )}
+          </div>
+        ))}
       </div>
     </div>
 
@@ -252,7 +313,6 @@ const projects: Project[] = [
   const closeBtn = document.getElementById('close-modal');
   
   const titleEl = document.getElementById('modal-title');
-  const descEl = document.getElementById('modal-desc');
   const linkEl = document.getElementById('modal-link');
   const descContainer = document.getElementById('desc-container');
 
@@ -274,7 +334,6 @@ const projects: Project[] = [
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       const title = btn.getAttribute('data-title');
-      const desc = btn.getAttribute('data-desc');
       const link = btn.getAttribute('data-link');
 
       // Reinicia a animação da descrição sempre que abre o modal
@@ -284,7 +343,15 @@ const projects: Project[] = [
       }
 
       if (titleEl) titleEl.textContent = title;
-      if (descEl) descEl.textContent = desc;
+      document.querySelectorAll('.project-case').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      });
+      const activeCase = document.getElementById(`case-${id}`);
+      if (activeCase) {
+        activeCase.classList.remove('hidden');
+        activeCase.classList.add('flex');
+      }
       if (linkEl) (linkEl as HTMLAnchorElement).href = link || 'https://github.com/devpedroeduardo';
       
       // Lógica de esconder/mostrar a galeria do projeto correto
