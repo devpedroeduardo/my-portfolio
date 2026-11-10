@@ -23,6 +23,8 @@ interface Project {
   preview?: string;
   status: "Deployed" | "In Progress" | "Contributor" | "Archived";
   technologies: string[];
+  // Provas públicas que dá para abrir (specs, time de agentes, CI), para projetos sem demo.
+  proof?: { label: string; href: string }[];
   caseStudy?: {
     problema: string;
     solucao: string;
@@ -40,6 +42,8 @@ const t = pick(lang, {
     eyebrow: "Meu trabalho",
     title: "Projetos em destaque",
     intro: "Aplicações que construí do banco de dados à interface, algumas delas com um time de agentes de IA.",
+    proofTitle: "Confira no repositório",
+    proof: { specs: "37 specs", agents: "Time de agentes", ci: "CI verde na main" },
     code: "Código", codeAria: "Ver código-fonte",
     live: "Ver online", liveAria: "Ver projeto online",
     soonTitle: "Novos projetos em breve",
@@ -89,6 +93,8 @@ const t = pick(lang, {
     eyebrow: "My work",
     title: "Featured projects",
     intro: "Applications I have built from database to interface, some of them with a team of AI agents.",
+    proofTitle: "See it in the repository",
+    proof: { specs: "37 specs", agents: "AI agent team", ci: "Green CI on main" },
     code: "Code", codeAria: "View source code",
     live: "Live demo", liveAria: "Open live project",
     soonTitle: "More projects coming soon",
@@ -148,6 +154,11 @@ const projects: Project[] = [
     link: "https://github.com/devpedroeduardo/otilc-store",
     status: "In Progress",
     technologies: ["NestJS", "Next.js", "PostgreSQL", "Docker", lang === "en" ? "AI agents" : "Agentes de IA"],
+    proof: [
+      { label: t.proof.specs, href: "https://github.com/devpedroeduardo/otilc-store/tree/main/specs" },
+      { label: t.proof.agents, href: "https://github.com/devpedroeduardo/otilc-store/tree/main/docs/agents" },
+      { label: t.proof.ci, href: "https://github.com/devpedroeduardo/otilc-store/actions/workflows/ci.yml?query=branch%3Amain" },
+    ],
     caseStudy: caseOf(t.otilc),
   },
   {
@@ -251,6 +262,19 @@ const projects: Project[] = [
                   </span>
                 ))}
               </div>
+
+              {project.proof && (
+                <ul class="mb-6 -mt-2 flex flex-wrap gap-2 list-none p-0" aria-label={t.proofTitle}>
+                  {project.proof.map((item) => (
+                    <li>
+                      <a href={item.href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-md hover:bg-emerald-500/20 hover:text-emerald-200 transition-colors">
+                        {item.label}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               <div class="flex items-center gap-4 pt-4 border-t border-white/5">
                 <a 
@@ -372,6 +396,21 @@ const projects: Project[] = [
               <p class="text-neutral-300 leading-relaxed text-lg bg-gray-800/30 p-6 rounded-xl border border-white/5">
                 {project.longDescription || project.description}
               </p>
+            )}
+            {project.proof && (
+              <div class="bg-emerald-500/5 p-5 rounded-xl border border-emerald-500/20">
+                <h5 class="text-sm font-semibold uppercase tracking-wide text-emerald-300 mb-3">{t.proofTitle}</h5>
+                <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
+                  {project.proof.map((item) => (
+                    <li>
+                      <a href={item.href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-md hover:bg-emerald-500/20 hover:text-emerald-200 transition-colors no-underline">
+                        {item.label}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         ))}
