@@ -46,7 +46,7 @@ const t = pick(lang, {
     soonText: "Estou finalizando novos projetos. Enquanto isso, veja o que estou construindo no meu GitHub.",
     modalTitle: "Projeto", noImages: "Sem imagens disponíveis.", screenshot: "captura de tela",
     caseTitle: "Estudo de caso", problem: "O problema", solution: "A solução", decisions: "Decisões técnicas", result: "Resultado",
-    github: "Ver no GitHub",
+    github: "Ver no GitHub", screens: "Telas", closeAria: "Fechar",
     otilc: {
       description: "E-commerce de streetwear para um cliente real, com Pix, painel administrativo e um time de agentes de IA no desenvolvimento.",
       problema: "A OTILC vendia peças seminovas pelo WhatsApp, cada uma com uma unidade só. Na pré-venda deu certo, mas sem estoque controlado a mesma peça podia ser vendida duas vezes, e o pagamento era conferido à mão.",
@@ -95,7 +95,7 @@ const t = pick(lang, {
     soonText: "I am finishing new projects. In the meantime, see what I am building on my GitHub.",
     modalTitle: "Project", noImages: "No images available.", screenshot: "screenshot",
     caseTitle: "Case study", problem: "The problem", solution: "The solution", decisions: "Technical decisions", result: "Outcome",
-    github: "View on GitHub",
+    github: "View on GitHub", screens: "Screens", closeAria: "Close",
     otilc: {
       description: "Streetwear e-commerce for a real client, with Pix payments, an admin panel and a team of AI agents in development.",
       problema: "OTILC sold pre-owned items over WhatsApp, each one a single unit. The pre-sale worked, but without inventory control the same item could be sold twice, and payments were checked by hand.",
@@ -307,36 +307,15 @@ const projects: Project[] = [
     
     <div class="flex justify-between items-center p-6 border-b border-white/10 bg-gray-800/50 sticky top-0 z-20">
       <h3 id="modal-title" class="text-2xl font-bold text-white">{t.modalTitle}</h3>
-      <button id="close-modal" class="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover:bg-gray-700 focus:outline-none">
+      <button id="close-modal" type="button" aria-label={t.closeAria} class="text-gray-400 hover:text-white transition-colors p-2 bg-gray-800 rounded-full hover:bg-gray-700">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
 
     <div class="p-6 overflow-y-auto custom-scrollbar relative">
       
-      <!-- Galerias Pré-Renderizadas pelo Astro -->
-      <div id="modal-galleries-container" class="mb-16 min-h-[50vh]">
-        {projects.map(project => (
-          <div id={`gallery-${project.id}`} class="project-gallery hidden flex-col gap-6">
-            {project.modalImages && project.modalImages.length > 0 ? (
-              project.modalImages.map((img) => (
-                <div class="w-full rounded-xl overflow-hidden border border-white/10 bg-gray-900 shadow-xl shadow-black/20">
-                  {typeof img === 'string' ? (
-                    <img src={img} alt={`${project.title} – ${t.screenshot}`} class="w-full h-auto object-cover" loading="lazy" />
-                  ) : (
-                    <Image src={img} alt={`${project.title} – ${t.screenshot}`} class="w-full h-auto object-cover" />
-                  )}
-                </div>
-              ))
-            ) : (
-              <div class="text-neutral-500 italic p-4 bg-gray-800/30 rounded-xl border border-white/5 text-center">{t.noImages}</div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <!-- Container da Descrição -->
-      <div id="desc-container" class="prose prose-invert max-w-none opacity-0 translate-y-12 transition-all duration-700 ease-out pb-8">
+      <!-- Estudo de caso (primeiro: é o que mais importa) -->
+      <div id="desc-container" class="prose prose-invert max-w-none">
         <h4 class="text-2xl font-semibold text-blue-400 mb-4 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
           {t.caseTitle}
@@ -345,6 +324,10 @@ const projects: Project[] = [
           <div id={`case-${project.id}`} class="project-case hidden flex-col gap-4">
             {project.caseStudy ? (
               <>
+                <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-5 rounded-xl border border-blue-500/20">
+                  <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-2">{t.result}</h5>
+                  <p class="text-neutral-200 leading-relaxed">{project.caseStudy.resultado}</p>
+                </div>
                 <div class="grid gap-4 md:grid-cols-2">
                   <div class="bg-gray-800/30 p-5 rounded-xl border border-white/5">
                     <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-2">{t.problem}</h5>
@@ -363,15 +346,33 @@ const projects: Project[] = [
                     ))}
                   </ul>
                 </div>
-                <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-5 rounded-xl border border-blue-500/20">
-                  <h5 class="text-sm font-semibold uppercase tracking-wide text-blue-300 mb-2">{t.result}</h5>
-                  <p class="text-neutral-200 leading-relaxed">{project.caseStudy.resultado}</p>
-                </div>
               </>
             ) : (
               <p class="text-neutral-300 leading-relaxed text-lg bg-gray-800/30 p-6 rounded-xl border border-white/5">
                 {project.longDescription || project.description}
               </p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <!-- Telas do projeto (depois do estudo de caso) -->
+      <div id="modal-galleries-container" class="mt-10">
+        <h4 class="text-2xl font-semibold text-blue-400 mb-4">{t.screens}</h4>
+        {projects.map(project => (
+          <div id={`gallery-${project.id}`} class="project-gallery hidden flex-col gap-6">
+            {project.modalImages && project.modalImages.length > 0 ? (
+              project.modalImages.map((img) => (
+                <div class="w-full rounded-xl overflow-hidden border border-white/10 bg-gray-900 shadow-xl shadow-black/20">
+                  {typeof img === 'string' ? (
+                    <img src={img} alt={`${project.title} – ${t.screenshot}`} class="w-full h-auto object-cover" loading="lazy" />
+                  ) : (
+                    <Image src={img} alt={`${project.title} – ${t.screenshot}`} class="w-full h-auto object-cover" />
+                  )}
+                </div>
+              ))
+            ) : (
+              <div class="text-neutral-500 italic p-4 bg-gray-800/30 rounded-xl border border-white/5 text-center">{t.noImages}</div>
             )}
           </div>
         ))}
@@ -400,33 +401,12 @@ const projects: Project[] = [
   
   const titleEl = document.getElementById('modal-title');
   const linkEl = document.getElementById('modal-link');
-  const descContainer = document.getElementById('desc-container');
-
-  // Configura o observador de interseção (Scroll Reveal)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.remove('opacity-0', 'translate-y-12');
-        entry.target.classList.add('opacity-100', 'translate-y-0');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  if (descContainer) {
-    observer.observe(descContainer);
-  }
 
   openBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       const title = btn.getAttribute('data-title');
       const link = btn.getAttribute('data-link');
-
-      // Reinicia a animação da descrição sempre que abre o modal
-      if (descContainer) {
-        descContainer.classList.remove('opacity-100', 'translate-y-0');
-        descContainer.classList.add('opacity-0', 'translate-y-12');
-      }
 
       if (titleEl) titleEl.textContent = title;
       document.querySelectorAll('.project-case').forEach(el => {
@@ -460,9 +440,11 @@ const projects: Project[] = [
     });
   });
 
-  closeBtn?.addEventListener('click', () => {
-    modal?.close();
-    document.body.style.overflow = 'auto'; 
+  closeBtn?.addEventListener('click', () => modal?.close());
+
+  // Vale para todas as formas de fechar (X, clique fora e tecla Esc).
+  modal?.addEventListener('close', () => {
+    document.body.style.overflow = '';
   });
 
   modal?.addEventListener('click', (e) => {
@@ -474,7 +456,6 @@ const projects: Project[] = [
       e.clientY > dialogDimensions.bottom
     ) {
       modal.close();
-      document.body.style.overflow = 'auto';
     }
   });
 </script>
