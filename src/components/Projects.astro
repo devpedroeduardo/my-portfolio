@@ -7,6 +7,9 @@ import finpocket1 from "../assets/my-finpocket-1.png";
 import finpocket2 from "../assets/my-finpocket-2.png";
 import bemobile1 from "../assets/bemobile-1.png";
 import bemobile2 from "../assets/bemobile-2.png";
+import otilc1 from "../assets/otilc-1.png";
+import otilc2 from "../assets/otilc-2.png";
+import otilc3 from "../assets/otilc-3.png";
 
 interface Project {
   id: string; 
@@ -17,7 +20,7 @@ interface Project {
   description: string;
   longDescription?: string; 
   link: string;
-  preview: string;
+  preview?: string;
   status: "Deployed" | "In Progress" | "Contributor" | "Archived";
   technologies: string[];
   caseStudy?: {
@@ -36,7 +39,7 @@ const t = pick(lang, {
     status: { Deployed: "No ar", "In Progress": "Em andamento", Contributor: "Colaborador", Archived: "Concluído" },
     eyebrow: "Meu trabalho",
     title: "Projetos em destaque",
-    intro: "Algumas das aplicações que construí, do front-end ao back-end.",
+    intro: "Aplicações que construí do banco de dados à interface, algumas delas com um time de agentes de IA.",
     code: "Código", codeAria: "Ver código-fonte",
     live: "Ver online", liveAria: "Ver projeto online",
     soonTitle: "Novos projetos em breve",
@@ -44,6 +47,18 @@ const t = pick(lang, {
     modalTitle: "Projeto", noImages: "Sem imagens disponíveis.", screenshot: "captura de tela",
     caseTitle: "Estudo de caso", problem: "O problema", solution: "A solução", decisions: "Decisões técnicas", result: "Resultado",
     github: "Ver no GitHub",
+    otilc: {
+      description: "E-commerce de streetwear para um cliente real, com Pix, painel administrativo e um time de agentes de IA no desenvolvimento.",
+      problema: "A OTILC vendia peças seminovas pelo WhatsApp, cada uma com uma unidade só. Na pré-venda deu certo, mas sem estoque controlado a mesma peça podia ser vendida duas vezes, e o pagamento era conferido à mão.",
+      solucao: "Uma loja completa num monorepo: API em NestJS, loja e painel em Next.js e PostgreSQL. O pedido reserva a peça por 30 minutos, o Pix do Mercado Pago confirma o pagamento sozinho e o painel cuida de produtos, fotos, estoque, pedidos e alertas. O código foi escrito por um time de agentes de IA que eu coordeno: um orquestrador transforma o pedido em spec, dois agentes Claude Code desenvolvem, o Codex (outro fornecedor) revisa todo PR e um modelo leve vigia o CI. Eu decido o escopo, leio o diff e faço o merge.",
+      decisoes: [
+        "Estoque à prova de concorrência: a reserva é um UPDATE condicional dentro da transação. Um teste dispara 10 compras simultâneas da última peça e só uma passa.",
+        "Pix conferido por três caminhos (webhook assinado, consulta na página do pedido e conciliação a cada 5 minutos com FOR UPDATE SKIP LOCKED), com backoff e painel de alertas.",
+        "O preço nunca vem do navegador: o checkout manda só a variação e a quantidade, e a API calcula o total com os preços do banco.",
+        "Spec antes de código: cada mudança nasce de uma spec com critérios de aceite e vira um PR que só entra com o CI verde (testes, integração com Postgres real, E2E com Playwright, Semgrep e gitleaks). Nenhum agente faz merge nem toca em segredo.",
+      ],
+      resultado: "37 specs e mais de 50 PRs mergeados, CI com 8 verificações obrigatórias e a loja pronta para o primeiro deploy.",
+    },
     bemobile: {
       description: "Desafio técnico de front-end: tabela de funcionários responsiva, com busca em tempo real.",
       problema: "Desafio técnico de uma vaga de front-end: exibir os funcionários vindos de uma API, com busca, e funcionar bem no celular.",
@@ -73,7 +88,7 @@ const t = pick(lang, {
     status: { Deployed: "Live", "In Progress": "In progress", Contributor: "Contributor", Archived: "Completed" },
     eyebrow: "My work",
     title: "Featured projects",
-    intro: "A few of the applications I have built, from front end to back end.",
+    intro: "Applications I have built from database to interface, some of them with a team of AI agents.",
     code: "Code", codeAria: "View source code",
     live: "Live demo", liveAria: "Open live project",
     soonTitle: "More projects coming soon",
@@ -81,6 +96,18 @@ const t = pick(lang, {
     modalTitle: "Project", noImages: "No images available.", screenshot: "screenshot",
     caseTitle: "Case study", problem: "The problem", solution: "The solution", decisions: "Technical decisions", result: "Outcome",
     github: "View on GitHub",
+    otilc: {
+      description: "Streetwear e-commerce for a real client, with Pix payments, an admin panel and a team of AI agents in development.",
+      problema: "OTILC sold pre-owned items over WhatsApp, each one a single unit. The pre-sale worked, but without inventory control the same item could be sold twice, and payments were checked by hand.",
+      solucao: "A full store in a monorepo: a NestJS API, a Next.js storefront and admin panel, and PostgreSQL. An order holds the item for 30 minutes, Mercado Pago Pix confirms payment automatically, and the admin panel handles products, photos, stock, orders and alerts. The code is written by a team of AI agents that I coordinate: an orchestrator turns each request into a spec, two Claude Code agents build it, Codex (a different vendor) reviews every PR, and a lightweight model watches CI. I own scope, read the diff and merge.",
+      decisoes: [
+        "Concurrency-safe stock: the reservation is a conditional UPDATE inside the order transaction. A test fires 10 simultaneous purchases of the last unit and exactly one succeeds.",
+        "Pix checked three ways (signed webhook, a lookup on the order page and reconciliation every 5 minutes with FOR UPDATE SKIP LOCKED), with backoff and an alerts panel.",
+        "Prices never come from the browser: checkout sends only the variant and quantity, and the API computes the total from database prices.",
+        "Spec before code: every change starts as a spec with acceptance criteria and becomes a PR that only merges with green CI (unit tests, integration with a real Postgres, Playwright E2E, Semgrep and gitleaks). No agent merges or touches secrets.",
+      ],
+      resultado: "37 specs and 50+ merged PRs, CI with 8 required checks, and the store ready for its first deploy.",
+    },
     bemobile: {
       description: "Front-end technical challenge: a responsive employee table with real-time search.",
       problema: "A technical challenge for a front-end role: display employees from an API, with search, and make it work well on mobile.",
@@ -113,16 +140,15 @@ const caseOf = (c: typeof t.bemobile) => ({ problema: c.problema, solucao: c.sol
 // ARRAY DE PROJETOS
 const projects: Project[] = [
   {
-    id: "bemobile",
-    title: "BeMobileProject",
-    image: bemobile1,
-    modalImages: [bemobile1, bemobile2],
-    description: t.bemobile.description,
-    link: "https://github.com/devpedroeduardo/bemobile-project",
-    preview: "https://github.com/devpedroeduardo/bemobile-project",
-    status: "Archived",
-    technologies: ["React", "Node.js", "styled-components"],
-    caseStudy: caseOf(t.bemobile),
+    id: "otilc",
+    title: "OTILC Store",
+    image: otilc1,
+    modalImages: [otilc1, otilc2, otilc3],
+    description: t.otilc.description,
+    link: "https://github.com/devpedroeduardo/otilc-store",
+    status: "In Progress",
+    technologies: ["NestJS", "Next.js", "PostgreSQL", "Docker", lang === "en" ? "AI agents" : "Agentes de IA"],
+    caseStudy: caseOf(t.otilc),
   },
   {
     id: "myfinpocket",
@@ -133,8 +159,19 @@ const projects: Project[] = [
     link: "https://github.com/devpedroeduardo/my-finpocket",
     preview: "https://my-finpocket.vercel.app/",
     status: "Deployed",
-    technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Playwright"],
+    technologies: ["Next.js", "TypeScript", "Supabase", "Gemini", "Playwright"],
     caseStudy: caseOf(t.myfinpocket),
+  },
+  {
+    id: "bemobile",
+    title: "BeMobileProject",
+    image: bemobile1,
+    modalImages: [bemobile1, bemobile2],
+    description: t.bemobile.description,
+    link: "https://github.com/devpedroeduardo/bemobile-project",
+    status: "Archived",
+    technologies: ["React", "Node.js", "styled-components"],
+    caseStudy: caseOf(t.bemobile),
   },
 ];---
 
@@ -229,6 +266,7 @@ const projects: Project[] = [
                   <span>{t.code}</span>
                 </a>
                 
+                {project.preview && (
                 <a 
                   href={project.preview} 
                   target="_blank" 
@@ -241,6 +279,7 @@ const projects: Project[] = [
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   </div>
                 </a>
+                )}
               </div>
             </div>
           </article>
