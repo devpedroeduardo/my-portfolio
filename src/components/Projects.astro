@@ -5,8 +5,10 @@ import { pick, type Lang } from "../i18n";
 // 1. IMPORTAÇÃO DAS IMAGENS:
 import finpocket1 from "../assets/my-finpocket-1.png";
 import finpocket2 from "../assets/my-finpocket-2.png";
-import bemobile1 from "../assets/bemobile-1.png";
-import bemobile2 from "../assets/bemobile-2.png";
+import landing1 from "../assets/otilc-landing-1.png";
+import landing2 from "../assets/otilc-landing-2.png";
+import neo1 from "../assets/neo-estech-1.png";
+import neo2 from "../assets/neo-estech-2.png";
 import otilc1 from "../assets/otilc-1.png";
 import otilc2 from "../assets/otilc-2.png";
 import otilc3 from "../assets/otilc-3.png";
@@ -59,17 +61,29 @@ const t = pick(lang, {
       ],
       resultado: "37 specs e mais de 50 PRs mergeados, CI com 8 verificações obrigatórias e a loja pronta para o primeiro deploy.",
     },
-    bemobile: {
-      description: "Desafio técnico de front-end: tabela de funcionários responsiva, com busca em tempo real.",
-      problema: "Desafio técnico de uma vaga de front-end: exibir os funcionários vindos de uma API, com busca, e funcionar bem no celular.",
-      solucao: "Uma tabela em React com busca em tempo real por nome, cargo e telefone. Em telas de até 800px, a tabela vira uma lista em acordeão, que mostra os detalhes de cada pessoa ao tocar.",
+    landing: {
+      description: "Vitrine da pré-venda da OTILC: site estático sem build, com testes E2E, acessibilidade WCAG 2.1 AA e Lighthouse de 98 a 100.",
+      problema: "Antes da loja, a OTILC queria vender um lote de 17 peças seminovas, cada uma com uma unidade só. Um checkout com carrinho seria pesado para isso, a venda é fechada no WhatsApp e o site precisava ter cara de marca, não de brechó.",
+      solucao: "Um site estático em HTML, CSS e JavaScript puros, sem build. O visitante monta a seleção sem cadastro e ela vira uma mensagem pronta no WhatsApp, com número, tamanho e total. Cada peça tem link próprio, régua de condição de 0 a 10, galeria e medidas.",
       decisoes: [
-        "Acordeão feito do zero, só com React e CSS, sem bibliotecas de componentes.",
-        "Componentes pequenos (Header, Input, Table, Accordion) e o estado concentrado em um único container.",
-        "Formatação de data e telefone isolada em funções puras, fáceis de testar.",
-        "API simulada com json-server para desenvolver sem depender de um back-end.",
+        "Sem framework: para 17 peças, ele só aumentaria o peso e a manutenção. O código é modular (ES modules) para migrar depois.",
+        "Dados separados do código em um products.json, que já tem o formato de uma futura API.",
+        "Regras puras isoladas do DOM e estado com publish/subscribe, testados direto no Node.",
+        "Acessibilidade de verdade: painéis com foco preso e devolvido, navegação por teclado e respeito a prefers-reduced-motion. GA4 e Meta Pixel só carregam depois do consentimento (LGPD).",
       ],
-      resultado: "Desafio concluído com layout responsivo e código organizado por componentes.",
+      resultado: "Lighthouse de 98 a 100 nas quatro categorias, 0 violações sérias no axe (WCAG 2.1 AA), 32 testes E2E, 18 unitários e imagens 73% mais leves no celular. O deploy no GitHub Pages só acontece com o CI verde.",
+    },
+    neo: {
+      description: "Desafio técnico de front-end: gestão de chamados com tabela filtrável, formulário validado e painel de indicadores.",
+      problema: "Desafio de uma vaga de front-end: um módulo para equipes de manutenção acompanharem chamados operacionais (refrigeração, energia, água), com filtros, abertura de chamados e uma visão para o gestor.",
+      solucao: "Uma aplicação em Next.js 14 (App Router) com rotas de API simuladas. A visão técnica tem tabela paginada com filtros por título, status, prioridade e área, painel lateral de detalhes com linha do tempo e um modal para abrir chamados. A visão do gestor mostra indicadores e gráficos com Recharts.",
+      decisoes: [
+        "Formulário com React Hook Form e Zod, e React Query com optimistic update: o chamado novo aparece na tabela na hora, sem recarregar a página.",
+        "Interface com Ant Design, dividida em componentes pequenos para crescer sem duplicar código.",
+        "Testes unitários com Vitest nos componentes e E2E com Playwright no fluxo de filtragem.",
+        "No README, respondi às perguntas teóricas do desafio: cache e rollback no React Query, virtualização para 5.000 linhas e composição no lugar de props demais.",
+      ],
+      resultado: "Aplicação publicada na Vercel com as duas visões funcionando, testes unitários e E2E.",
     },
     myfinpocket: {
       description: "Aplicação de finanças pessoais (PWA) com Next.js, Supabase e IA.",
@@ -108,17 +122,29 @@ const t = pick(lang, {
       ],
       resultado: "37 specs and 50+ merged PRs, CI with 8 required checks, and the store ready for its first deploy.",
     },
-    bemobile: {
-      description: "Front-end technical challenge: a responsive employee table with real-time search.",
-      problema: "A technical challenge for a front-end role: display employees from an API, with search, and make it work well on mobile.",
-      solucao: "A React table with real-time search by name, job title and phone number. On screens up to 800px wide, the table becomes an accordion list that reveals each person's details on tap.",
+    landing: {
+      description: "Pre-sale storefront for OTILC: a static site with no build step, E2E tests, WCAG 2.1 AA accessibility and Lighthouse scores of 98 to 100.",
+      problema: "Before the store, OTILC wanted to sell a batch of 17 pre-owned items, one unit each. A cart-based checkout would be overkill, sales close over WhatsApp, and the site had to look like a brand, not a thrift shop.",
+      solucao: "A static site in plain HTML, CSS and JavaScript with no build step. Visitors build a selection without signing up, and it turns into a ready-to-send WhatsApp message with item number, size and total. Each item has its own link, a 0 to 10 condition scale, a gallery and measurements.",
       decisoes: [
-        "Accordion built from scratch with React and CSS only, with no component libraries.",
-        "Small components (Header, Input, Table, Accordion) with state kept in a single container.",
-        "Date and phone formatting isolated in pure functions that are easy to test.",
-        "Mock API with json-server, so development did not depend on a back end.",
+        "No framework: for 17 items it would only add weight and maintenance. The code is modular (ES modules) so it can migrate later.",
+        "Data kept out of the code in a products.json that already has the shape of a future API.",
+        "Pure rules isolated from the DOM and publish/subscribe state, tested directly in Node.",
+        "Real accessibility: panels trap and return focus, full keyboard navigation and prefers-reduced-motion support. GA4 and Meta Pixel only load after consent (LGPD).",
       ],
-      resultado: "Challenge completed with a responsive layout and component-based code.",
+      resultado: "Lighthouse 98 to 100 in all four categories, zero serious axe violations (WCAG 2.1 AA), 32 E2E and 18 unit tests, and images 73% lighter on mobile. Deploys to GitHub Pages only happen on green CI.",
+    },
+    neo: {
+      description: "Front-end technical challenge: a ticket management app with a filterable table, a validated form and a KPI dashboard.",
+      problema: "A technical challenge for a front-end role: a module for maintenance teams to track operational tickets (refrigeration, power, water), with filters, ticket creation and a manager view.",
+      solucao: "A Next.js 14 (App Router) app with mocked API routes. The technician view has a paginated table filtered by title, status, priority and area, a side drawer with a status timeline and a modal to open tickets. The manager view shows KPIs and Recharts charts.",
+      decisoes: [
+        "Form built with React Hook Form and Zod, and React Query optimistic updates: a new ticket shows up in the table instantly, without a reload.",
+        "Ant Design interface split into small components so it can grow without duplicated code.",
+        "Unit tests with Vitest for components and Playwright E2E tests for the filtering flow.",
+        "In the README I answered the challenge's theory questions: React Query cache and rollback, virtualization for 5,000 rows, and composition instead of prop overload.",
+      ],
+      resultado: "Deployed on Vercel with both views working, plus unit and E2E tests.",
     },
     myfinpocket: {
       description: "Personal finance app (PWA) built with Next.js, Supabase and AI.",
@@ -135,7 +161,7 @@ const t = pick(lang, {
   },
 });
 
-const caseOf = (c: typeof t.bemobile) => ({ problema: c.problema, solucao: c.solucao, decisoes: c.decisoes, resultado: c.resultado });
+const caseOf = (c: typeof t.otilc) => ({ problema: c.problema, solucao: c.solucao, decisoes: c.decisoes, resultado: c.resultado });
 
 // ARRAY DE PROJETOS
 const projects: Project[] = [
@@ -151,6 +177,18 @@ const projects: Project[] = [
     caseStudy: caseOf(t.otilc),
   },
   {
+    id: "otilc-landing",
+    title: lang === "en" ? "OTILC Pre-sale" : "OTILC Pré-venda",
+    image: landing2,
+    modalImages: [landing1, landing2],
+    description: t.landing.description,
+    link: "https://github.com/devpedroeduardo/otilc-landing",
+    preview: "https://devpedroeduardo.github.io/otilc-landing/",
+    status: "Deployed",
+    technologies: ["HTML", "CSS", "JavaScript", "Playwright", "axe", "Lighthouse"],
+    caseStudy: caseOf(t.landing),
+  },
+  {
     id: "myfinpocket",
     title: "MyFinPocket",
     image: finpocket1,
@@ -163,15 +201,16 @@ const projects: Project[] = [
     caseStudy: caseOf(t.myfinpocket),
   },
   {
-    id: "bemobile",
-    title: "BeMobileProject",
-    image: bemobile1,
-    modalImages: [bemobile1, bemobile2],
-    description: t.bemobile.description,
-    link: "https://github.com/devpedroeduardo/bemobile-project",
-    status: "Archived",
-    technologies: ["React", "Node.js", "styled-components"],
-    caseStudy: caseOf(t.bemobile),
+    id: "neo-estech",
+    title: "NEO Estech",
+    image: neo1,
+    modalImages: [neo1, neo2],
+    description: t.neo.description,
+    link: "https://github.com/devpedroeduardo/neo-estech-project",
+    preview: "https://neo-estech-project.vercel.app/",
+    status: "Deployed",
+    technologies: ["Next.js", "TypeScript", "Ant Design", "React Query", "Vitest", "Playwright"],
+    caseStudy: caseOf(t.neo),
   },
 ];---
 
